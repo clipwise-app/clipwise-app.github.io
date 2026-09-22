@@ -108,6 +108,63 @@
   }
   .field .copy { color: var(--blue); flex: none; }
 
+  /* --- drawn illustrations --- */
+  .toolbar {
+    display: flex; align-items: center; gap: 8px; border: 1px solid var(--line);
+    border-radius: 8px; padding: 8px 10px; background: var(--paper);
+  }
+  .toolbar .addr { flex: 1; height: 20px; border-radius: 10px; background: var(--line-soft); }
+  .toolbar .ico { width: 24px; height: 24px; border-radius: 6px; background: var(--line-soft); display: grid; place-items: center; font-size: .8rem; }
+  .toolbar .ico.pz { border: 1px dashed var(--blue); color: var(--blue); }
+  .toolbar .ico.cw { background: var(--blue); color: #fff; font-weight: 700; }
+  .pinlist { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: var(--paper); }
+  .pinlist div { display: flex; align-items: center; gap: 8px; font-size: .84rem; }
+  .pinlist .pin { margin-left: auto; color: var(--blue); }
+  .pinlist .sw { width: 16px; height: 16px; border-radius: 4px; background: var(--line); }
+  .pinlist .sw.on { background: var(--blue); }
+
+  .form { display: flex; flex-direction: column; gap: 10px; }
+  .form label { font-size: .74rem; color: var(--ink-faint); font-family: "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; }
+  .form .box { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; background: var(--paper); font-size: .86rem; }
+  .choice { display: flex; gap: 8px; flex-wrap: wrap; }
+  .choice span {
+    border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; font-size: .82rem; color: var(--ink-faint);
+  }
+  .choice span.pick { border-color: var(--blue); background: var(--blue-wash); color: var(--blue-ink); font-weight: 500; }
+  .choice span.no { text-decoration: line-through; }
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .compare > div { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: var(--paper); display: flex; flex-direction: column; gap: 7px; }
+  .compare .verdict { font-size: .78rem; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .compare .yes { color: var(--green); }
+  .compare .nope { color: var(--amber); }
+  .tbl { display: flex; flex-direction: column; gap: 3px; }
+  .tbl i { display: block; height: 8px; border-radius: 3px; background: var(--line-soft); }
+  .tbl i.hdr { background: var(--line); }
+  .tbl .cols { display: flex; gap: 3px; }
+  .tbl .cols i { flex: 1; }
+  .lines { display: flex; flex-direction: column; gap: 5px; }
+  .lines i { display: block; height: 7px; border-radius: 3px; background: var(--line-soft); }
+  .lines i.short { width: 55%; }
+
+  .popupmock { width: 100%; max-width: 280px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--paper); }
+  .popupmock .pm-head { padding: 9px 11px; border-bottom: 1px solid var(--line-soft); font-size: .84rem; font-weight: 500; }
+  .popupmock .pm-head small { display: block; color: var(--ink-faint); font-weight: 400; font-size: .72rem; }
+  .popupmock .pm-body { padding: 10px 11px; display: flex; flex-direction: column; gap: 7px; }
+  .pm-row { display: flex; justify-content: space-between; font-size: .76rem; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; background: var(--card); }
+  .pm-row b { font-weight: 500; color: var(--ink); }
+  .pm-save { background: var(--blue); color: #fff; text-align: center; border-radius: 6px; padding: 7px; font-size: .82rem; font-weight: 500; }
+  :root[data-theme="dark"] .pm-save { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pm-save { color: #0f1420; } }
+  .pm-hint { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .66rem; color: var(--ink-faint); text-align: center; }
+
+  .kbd {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .76rem;
+    border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px;
+    padding: 2px 7px; background: var(--card); color: var(--ink);
+  }
+  @media (max-width: 520px) { .compare { grid-template-columns: 1fr; } }
+
   .trouble { border-top: 1px solid var(--line-soft); padding-block: 34px; }
   .trouble details { border-bottom: 1px solid var(--line-soft); padding-block: 13px; }
   .trouble summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
@@ -161,8 +218,17 @@
     <div class="stephead"><span class="badge">1</span><h2>Install the extension</h2></div>
     <p>Clipwise runs on Chrome and on browsers built on it: Edge, Brave, Arc and Opera. Install it from the Chrome Web Store, and a setup guide opens by itself in a new tab.</p>
     <p><a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add Clipwise to Chrome — free</a></p>
-    <div class="note tip">
-      <span><b>Pin it to your toolbar.</b> Click the puzzle-piece icon at the top right of your browser, find Clipwise in the list and click the pin. Otherwise the icon hides in that menu and you'll think it didn't install.</span>
+    <div class="pic">
+      <span class="caption">pin it, or it hides in the puzzle menu</span>
+      <div class="toolbar">
+        <span class="ico">←</span><span class="addr"></span>
+        <span class="ico pz">🧩</span><span class="ico cw">C</span>
+      </div>
+      <div class="pinlist">
+        <div><span class="sw"></span>Some other extension<span class="pin">📌</span></div>
+        <div><span class="sw on"></span><b>Clipwise</b><span class="pin">📌</span></div>
+      </div>
+      <span>Click the puzzle piece, find Clipwise, click its pin. The blue icon then stays on your toolbar.</span>
     </div>
   </div>
 
@@ -176,7 +242,16 @@
       <li>Click <b>Save</b>, then open the integration and copy the <b>Internal Integration Secret</b>.</li>
     </ol>
     <div class="pic">
-      <span class="caption">what you're copying</span>
+      <span class="caption">the form in Notion</span>
+      <div class="form">
+        <div><label>Name</label><div class="box">Clipwise</div></div>
+        <div><label>Associated workspace</label><div class="box">My workspace</div></div>
+        <div>
+          <label>Type</label>
+          <div class="choice"><span class="pick">Internal ✓</span><span class="no">Public</span></div>
+        </div>
+      </div>
+      <span class="caption" style="margin-top:4px">and then what you copy</span>
       <div class="field"><span>ntn_4182b93f7c2a…</span><span class="copy">Copy</span></div>
       <span>It always starts with <code>ntn_</code>. Older integrations start with <code>secret_</code> and those still work.</span>
     </div>
@@ -189,6 +264,14 @@
     <div class="stephead"><span class="badge">3</span><h2>Paste the secret into Clipwise</h2></div>
     <p>Open the setup guide that appeared after installing, or click the Clipwise icon and go to its settings. Paste the secret in the field and save.</p>
     <p>That secret is stored in your own browser, in <code>chrome.storage.local</code>. It is sent to one place only: Notion's own API. There is no Clipwise server it could travel through, because there isn't one.</p>
+    <div class="pic">
+      <span class="caption">clipwise settings</span>
+      <div class="form">
+        <div><label>Notion integration secret</label><div class="box" style="font-family:'IBM Plex Mono',monospace;font-size:.8rem">ntn_4182b93f7c2a…</div></div>
+        <div class="pm-save" style="max-width:120px">Save</div>
+      </div>
+      <span>Saved on this computer. Nothing is sent anywhere but Notion.</span>
+    </div>
     <div class="note tip">
       <span><b>Lost the secret?</b> Notion shows it again on the integration's page — open <code>notion.so/my-integrations</code>, click your integration and reveal it there. If you'd rather start fresh, make a new integration and paste the new secret over the old one.</span>
     </div>
@@ -214,6 +297,25 @@
         <div>Customize page</div>
       </div>
     </div>
+    <div class="pic">
+      <span class="caption">a database works, a plain page doesn't</span>
+      <div class="compare">
+        <div>
+          <div class="tbl">
+            <div class="cols"><i class="hdr"></i><i class="hdr"></i><i class="hdr"></i></div>
+            <div class="cols"><i></i><i></i><i></i></div>
+            <div class="cols"><i></i><i></i><i></i></div>
+            <div class="cols"><i></i><i></i><i></i></div>
+          </div>
+          <span class="verdict yes">✓ Table, board, list, calendar, gallery</span>
+        </div>
+        <div>
+          <div class="lines"><i></i><i></i><i class="short"></i><i></i><i class="short"></i></div>
+          <span class="verdict nope">✗ An ordinary page of text</span>
+        </div>
+      </div>
+      <span>Clipwise saves each page as a new row, and rows only exist in a database.</span>
+    </div>
     <div class="note">
       <span><b>It has to be a database, not an ordinary page.</b> Clipwise saves a page as a new row, which only exists in a database — a table, board, list, calendar or gallery. If you connected a plain page, the list in Clipwise stays empty.</span>
       <span>Clipping into several databases? Repeat this for each one. Sharing a parent page shares everything inside it too.</span>
@@ -223,6 +325,20 @@
   <div class="stepblock" id="s5">
     <div class="stephead"><span class="badge">5</span><h2>Clip your first page</h2></div>
     <p>Open any article and click the Clipwise icon. Your database is in the list, the fields that the page tells us about are already filled in, and you pick a status or tags yourself. Click <b>Save to Notion</b> and you get a link straight to the new page.</p>
+    <div class="pic">
+      <span class="caption">the popup, on a real article</span>
+      <div class="popupmock">
+        <div class="pm-head">How to Do Great Work<small>paulgraham.com · 4 100 words</small></div>
+        <div class="pm-body">
+          <div class="pm-row"><span>Save to</span><b>Reading list</b></div>
+          <div class="pm-row"><span>Author</span><b>Paul Graham</b></div>
+          <div class="pm-row"><span>Status</span><b>To read</b></div>
+          <div class="pm-save">Save to Notion</div>
+          <div class="pm-hint">next time press <span class="kbd">Ctrl</span> <span class="kbd">Shift</span> <span class="kbd">S</span></div>
+        </div>
+      </div>
+      <span>Three of five fields were filled in from the page itself. You only pick the rest.</span>
+    </div>
     <ul>
       <li>The next clip is quicker: your last database and your usual values are remembered.</li>
       <li>For pages you just want kept, press <code>Ctrl+Shift+S</code> (<code>Cmd+Shift+S</code> on a Mac). It saves to your last database without opening anything.</li>
@@ -266,10 +382,14 @@
     </details>
   </div>
 
-  <div class="closer">
+  <div class="closer" id="contact">
     <h2>Stuck on something that isn't here?</h2>
-    <p style="color:var(--ink-soft)">Leave it on the Support tab of the Chrome Web Store listing. It's one person reading those, and questions like yours are how this guide got written.</p>
-    <a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki/support">Ask on the Support tab</a>
+    <p style="color:var(--ink-soft)">One person reads all of these — me. Questions like yours are how this guide got written, so don't worry about bothering anyone.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki/support">Ask on the Support tab</a>
+      <a class="btn" style="background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none" href="https://github.com/clipwise-app/clipwise-app.github.io/issues/new">Report it on GitHub</a>
+    </div>
+    <p style="color:var(--ink-faint);font-size:.88rem">The Support tab needs no account beyond the Google one you already use for Chrome. GitHub is handier if you want to paste a link to the page that clipped wrong.</p>
   </div>
 
   <footer>
