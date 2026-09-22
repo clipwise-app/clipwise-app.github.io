@@ -1,0 +1,806 @@
+<title>Clipwise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+  :root {
+    --paper: #f6f4ef;
+    --card: #fffefb;
+    --ink: #15140f;
+    --ink-soft: #57544a;
+    --ink-faint: #8b8778;
+    --line: #e2ddd1;
+    --line-soft: #ece8dd;
+    --blue: #2a78d6;
+    --blue-ink: #1b5aa6;
+    --blue-wash: #e8f0fb;
+    --amber: #b57905;
+    --green: #0a7d20;
+    --glow: rgba(42, 120, 214, .16);
+    --shadow: 0 1px 2px rgba(21, 20, 15, .05), 0 12px 32px -18px rgba(21, 20, 15, .35);
+    --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+      --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+      --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+      --amber: #e0a437; --green: #4cbb63; --glow: rgba(106, 166, 238, .22);
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 14px 34px -20px rgba(0, 0, 0, .9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+    --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+    --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+    --amber: #e0a437; --green: #4cbb63; --glow: rgba(106, 166, 238, .22);
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 14px 34px -20px rgba(0, 0, 0, .9);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, h3 { text-wrap: balance; margin: 0; letter-spacing: -0.02em; font-weight: 700; }
+  h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.04; }
+  h2 { font-size: clamp(1.5rem, 3.4vw, 2.05rem); line-height: 1.15; }
+  h3 { font-size: 1.06rem; letter-spacing: -0.01em; }
+  p { margin: 0; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+
+  /* scroll progress */
+  #progress {
+    position: fixed; top: env(safe-area-inset-top, 0px); left: 0; height: 2px; width: 100%;
+    transform: scaleX(0); transform-origin: 0 50%;
+    background: var(--blue); z-index: 50;
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ""; width: 26px; height: 1px; background: var(--blue);
+    transform-origin: left; animation: rule .7s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .lede { font-family: Newsreader, Georgia, serif; font-size: 1.22rem; line-height: 1.55; color: var(--ink-soft); max-width: 56ch; }
+
+  /* ---------- top ---------- */
+  .top { display: flex; align-items: center; gap: 12px; padding-block: 22px; }
+  .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.02em; font-size: 1.05rem; }
+  .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .top .spacer { flex: 1; }
+  .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; position: relative; }
+  .top a.textlink::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
+    background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform .3s ease;
+  }
+  .top a.textlink:hover { color: var(--ink); }
+  .top a.textlink:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px;
+    font: 500 .96rem/1 "Schibsted Grotesk", system-ui, sans-serif;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    position: relative; overflow: hidden;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary { background: var(--blue); color: #fff; box-shadow: var(--shadow); }
+  .btn-primary:hover { background: var(--blue-ink); }
+  :root[data-theme="dark"] .btn-primary { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn-primary { color: #0f1420; } }
+  .btn-primary::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 45%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    left: -60%; transition: left .55s ease;
+  }
+  .btn-primary:hover::after { left: 120%; }
+  .btn-ghost { border-color: var(--line); color: var(--ink); background: transparent; }
+  .btn-ghost:hover { border-color: var(--ink-faint); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    gap: 30px; align-items: center; padding-block: 18px 40px;
+  }
+  .hero-copy { display: flex; flex-direction: column; gap: 22px; }
+  .hero-copy > * { animation: rise .75s cubic-bezier(.2,.8,.2,1) both; }
+  .hero-copy > *:nth-child(2) { animation-delay: .07s; }
+  .hero-copy > *:nth-child(3) { animation-delay: .14s; }
+  .hero-copy > *:nth-child(4) { animation-delay: .21s; }
+  .hero-copy > *:nth-child(5) { animation-delay: .28s; }
+  @keyframes rise { from { opacity: .25; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .facts {
+    display: flex; flex-wrap: wrap; gap: 8px 18px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--ink-faint);
+  }
+  .facts span::before { content: "— "; }
+
+  .stage { position: relative; min-height: 380px; display: grid; place-items: center; }
+  .stage::before {
+    content: ""; position: absolute; inset: 8% 6%; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, var(--glow), transparent 68%);
+    filter: blur(6px);
+    animation: breathe 7s ease-in-out infinite;
+  }
+  @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.08); opacity: 1; } }
+  #clip3d { width: 100%; height: 380px; display: block; position: relative; }
+  .stage-hint {
+    position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .68rem;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint);
+  }
+
+  /* ---------- sections ---------- */
+  section { padding-block: 46px; border-top: 1px solid var(--line-soft); }
+  .sec-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; max-width: 62ch; align-items: flex-start; }
+
+  /* ---------- clip demo ---------- */
+  .demo { background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; }
+  .demo-bar { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--line-soft); background: var(--paper); }
+  .dots { display: flex; gap: 5px; }
+  .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); display: block; }
+  .url {
+    flex: 1; min-width: 0; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem;
+    color: var(--ink-faint); background: var(--card); border: 1px solid var(--line-soft);
+    border-radius: 6px; padding: 5px 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .url b { color: var(--ink-soft); font-weight: 400; transition: color .4s ease, opacity .4s ease; }
+  .demo.clipped .url b { color: var(--ink-faint); opacity: .35; text-decoration: line-through; }
+  .demo-panes { display: grid; grid-template-columns: 1fr 1fr; }
+  .pane { padding: 16px; min-height: 268px; }
+  .pane + .pane { border-left: 1px solid var(--line-soft); }
+  .pane-label {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .66rem;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px;
+  }
+  .row { border-radius: 5px; margin-bottom: 7px; max-height: 60px;
+    transition: opacity .45s ease, transform .45s ease, max-height .45s ease, margin .45s ease; }
+  .row.junk { background: var(--line-soft); height: 13px; }
+  .row.junk.tall { height: 30px; }
+  .row.text { font-family: Newsreader, Georgia, serif; font-size: .82rem; color: var(--ink-soft); line-height: 1.4; }
+  .row.head { font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: .98rem; color: var(--ink); }
+  .demo.clipped .junk { opacity: 0; transform: translateX(-16px); max-height: 0; margin-bottom: 0; }
+  .demo.clipped .keep { transform: translateX(2px); }
+
+  .notion-page { border: 1px dashed var(--line); border-radius: 8px; padding: 12px; background: var(--paper); }
+  .np-title { font-family: Newsreader, Georgia, serif; font-size: 1rem; font-weight: 500; margin-bottom: 8px; }
+  .prop { display: flex; gap: 8px; font-size: .76rem; margin-bottom: 5px; align-items: baseline; }
+  .prop .k { color: var(--ink-faint); width: 74px; flex: none; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .68rem; }
+  .prop .v { color: var(--ink-soft); }
+  .chip { background: var(--blue-wash); color: var(--blue-ink); border-radius: 20px; padding: 1px 8px; font-size: .7rem; }
+  .np-body { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line-soft); font-family: Newsreader, Georgia, serif; font-size: .82rem; color: var(--ink-soft); }
+  .fade { opacity: 0; transform: translateY(6px); transition: opacity .5s ease, transform .5s ease; }
+  .demo.clipped .fade { opacity: 1; transform: none; }
+  .demo.clipped .fade:nth-child(2) { transition-delay: .1s; }
+  .demo.clipped .fade:nth-child(3) { transition-delay: .18s; }
+  .demo.clipped .fade:nth-child(4) { transition-delay: .26s; }
+  .demo.clipped .fade:nth-child(5) { transition-delay: .34s; }
+  .empty-note { color: var(--ink-faint); font-size: .8rem; }
+  .demo.clipped .empty-note { display: none; }
+  .demo-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px; border-top: 1px solid var(--line-soft); background: var(--paper); }
+  .status { font-size: .82rem; color: var(--ink-soft); display: flex; align-items: center; gap: 7px; }
+  .status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-faint); display: inline-block; transition: background .3s ease; }
+  .status.ok .dot { background: var(--green); animation: ping .9s ease-out 1; }
+  .status.dup .dot { background: var(--amber); animation: ping .9s ease-out 1; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 currentColor; opacity: .9; } 100% { box-shadow: 0 0 0 10px transparent; } }
+  .demo-foot .btn { padding: 9px 14px; font-size: .88rem; }
+
+  /* ---------- features ---------- */
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 26px 34px; }
+  .feature { display: flex; flex-direction: column; gap: 8px; padding: 2px 2px 14px; position: relative; transition: transform .25s ease; }
+  .feature::after {
+    content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%;
+    background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  }
+  .feature:hover { transform: translateY(-3px); }
+  .feature:hover::after { transform: scaleX(1); }
+  .feature p { color: var(--ink-soft); font-size: .95rem; }
+  .feature .detail { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .74rem; color: var(--ink-faint); }
+
+  /* ---------- shots ---------- */
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+  .shot { display: flex; flex-direction: column; gap: 10px; }
+  .shot img {
+    width: 100%; max-width: 100%; border: 1px solid var(--line); border-radius: var(--radius);
+    display: block; background: var(--card);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+  }
+  .shot:hover img { transform: translateY(-4px) scale(1.012); box-shadow: var(--shadow); }
+  .shot p { font-size: .88rem; color: var(--ink-soft); }
+
+  /* ---------- privacy ---------- */
+  .privacy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 34px; align-items: start; }
+  .flow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .8rem;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px; display: flex; flex-direction: column; gap: 10px; color: var(--ink-soft);
+    overflow-x: auto; position: relative;
+  }
+  .flow .arrow { color: var(--blue); }
+  .flow .never { color: var(--ink-faint); text-decoration: line-through; }
+  .packet {
+    position: absolute; left: 30px; top: 30px; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--blue); box-shadow: 0 0 0 4px var(--glow);
+    animation: send 3.6s cubic-bezier(.5,0,.5,1) infinite;
+  }
+  @keyframes send {
+    0% { transform: translate(0, 0); opacity: 0; }
+    12% { opacity: 1; }
+    45% { transform: translate(0, 26px); opacity: 1; }
+    80% { transform: translate(120px, 26px); opacity: 1; }
+    92%, 100% { transform: translate(150px, 26px); opacity: 0; }
+  }
+  .never-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .never-list li { display: flex; gap: 10px; align-items: baseline; font-size: .95rem; color: var(--ink-soft); }
+  .never-list .x { color: var(--blue); font-weight: 700; }
+
+  /* ---------- steps ---------- */
+  .steps { counter-reset: step; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 26px; }
+  .step { display: flex; flex-direction: column; gap: 8px; }
+  .step .num {
+    counter-increment: step; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .74rem;
+    color: var(--blue); border: 1px solid var(--line); border-radius: 50%;
+    width: 26px; height: 26px; display: grid; place-items: center;
+    transition: background .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .step .num::before { content: counter(step); }
+  .step:hover .num { background: var(--blue); border-color: var(--blue); color: var(--card); }
+  .step p { font-size: .95rem; color: var(--ink-soft); }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .85em; background: var(--line-soft); border-radius: 4px; padding: 1px 5px; color: var(--ink); }
+
+  /* ---------- faq ---------- */
+  .faq { display: flex; flex-direction: column; }
+  .faq details { border-bottom: 1px solid var(--line-soft); padding-block: 14px; }
+  .faq summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; transition: transform .25s ease, color .25s ease; }
+  .faq details[open] summary::after { content: "+"; transform: rotate(45deg); color: var(--blue); }
+  .faq p { margin-top: 10px; color: var(--ink-soft); font-size: .95rem; max-width: 66ch; animation: rise .35s ease both; }
+
+  .closer { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; padding-block: 52px; }
+  footer {
+    border-top: 1px solid var(--line-soft); padding-block: 26px 40px;
+    display: flex; flex-wrap: wrap; gap: 12px 26px; align-items: center;
+    font-size: .86rem; color: var(--ink-faint);
+  }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+  footer .spacer { flex: 1; }
+
+  /* ---------- marquee of pages it handles ---------- */
+  .ticker {
+    position: relative; overflow: hidden; border-block: 1px solid var(--line-soft);
+    padding-block: 9px; margin-top: 2px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .ticker-track { display: flex; gap: 26px; width: max-content; animation: slide 26s linear infinite; }
+  .ticker:hover .ticker-track { animation-play-state: paused; }
+  .ticker span {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem;
+    color: var(--ink-faint); white-space: nowrap;
+  }
+  .ticker span::before { content: "▸ "; color: var(--blue); }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- scroll reveals (visible at rest, lifted on entry) ---------- */
+  .reveal { opacity: .55; transform: translateY(10px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+  .reveal.seen { opacity: 1; transform: none; }
+  .grid-3 .feature:nth-child(2) { transition-delay: .06s; }
+  .grid-3 .feature:nth-child(3) { transition-delay: .12s; }
+  .grid-3 .feature:nth-child(4) { transition-delay: .18s; }
+  .grid-3 .feature:nth-child(5) { transition-delay: .24s; }
+  .grid-3 .feature:nth-child(6) { transition-delay: .3s; }
+
+  /* ---------- steps rail ---------- */
+  .steps-wrap { position: relative; padding-top: 18px; }
+  .rail { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--line-soft); border-radius: 2px; overflow: hidden; }
+  .rail i { display: block; height: 100%; width: 100%; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .35s linear; }
+
+  /* ---------- blocked packet ---------- */
+  .packet.blocked {
+    background: var(--ink-faint); box-shadow: none;
+    animation: bounce 3.6s cubic-bezier(.5,0,.5,1) infinite .6s;
+  }
+  @keyframes bounce {
+    0% { transform: translate(0, 0); opacity: 0; }
+    14% { opacity: .9; }
+    42% { transform: translate(0, 52px); opacity: .9; }
+    58% { transform: translate(14px, 52px); opacity: .9; }
+    70% { transform: translate(0, 52px); opacity: .5; }
+    85%, 100% { transform: translate(0, 0); opacity: 0; }
+  }
+
+  /* ---------- faq animated open ---------- */
+  .faq .answer { overflow: hidden; max-height: 0; transition: max-height .4s cubic-bezier(.2,.8,.2,1); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 26px; }
+    .stage { min-height: 300px; }
+    #clip3d { height: 300px; }
+    .privacy { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .demo-panes { grid-template-columns: 1fr; }
+    .pane + .pane { border-left: 0; border-top: 1px solid var(--line-soft); }
+    .pane { min-height: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .row, .fade, .btn, .feature, .shot img, .step .num { transition-duration: .01ms; }
+    .hero-copy > *, .eyebrow::before, .faq p { animation: none; opacity: 1; transform: none; }
+    .stage::before, .packet, .status.ok .dot, .status.dup .dot, .ticker-track { animation: none; }
+    .packet { opacity: .8; }
+    .packet.blocked { display: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<div id="progress"></div>
+
+<div class="wrap">
+  <div class="top">
+    <span class="mark"><img src="shots/icon.png" alt="">Clipwise</span>
+    <span class="spacer"></span>
+    <a class="textlink" href="#try">Try it</a>
+    <a class="textlink" href="#privacy">Privacy</a>
+  </div>
+
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Chrome extension · free</span>
+      <h1>Save any page to&nbsp;Notion. The whole article, not half of it.</h1>
+      <p class="lede">Clipwise clips web pages straight into your Notion databases — no account with us, no server in between, and nothing that ever leaves your computer.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add to Chrome — free</a>
+        <a class="btn btn-ghost" href="#try">Try the demo</a>
+      </div>
+      <div class="facts">
+        <span>no sign-up</span><span>no server</span><span>no tracking</span><span>#6 of the day on Product Hunt</span>
+      </div>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track" id="tickerTrack">
+          <span>long-form essays</span><span>docs pages</span><span>recipes</span><span>GitHub READMEs</span>
+          <span>newsletter archives</span><span>research papers</span><span>news articles</span><span>blog posts with 300 comments</span>
+          <span>old sites with table layouts</span><span>pages inside web components</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <canvas id="clip3d" aria-label="A rotating paperclip, the Clipwise mark"></canvas>
+    </div>
+  </div>
+
+  <section id="try">
+    <div class="sec-head">
+      <span class="eyebrow">Try it here</span>
+      <h2>One button, and the page arrives in Notion finished</h2>
+    </div>
+
+    <div class="demo" id="demo">
+      <div class="demo-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">paulgraham.com/greatwork.html<b>?utm_source=newsletter&amp;fbclid=ax91</b></span>
+      </div>
+      <div class="demo-panes">
+        <div class="pane">
+          <div class="pane-label">The page</div>
+          <div class="row junk tall" aria-hidden="true"></div>
+          <div class="row head keep">How to Do Great Work</div>
+          <div class="row junk" aria-hidden="true"></div>
+          <div class="row text keep">If you collected lists of techniques for doing great work in a lot of different fields, what would the intersection look like?</div>
+          <div class="row junk" aria-hidden="true"></div>
+          <div class="row text keep">I decided to find out by making it.</div>
+          <div class="row junk tall" aria-hidden="true"></div>
+          <div class="row junk" aria-hidden="true"></div>
+        </div>
+        <div class="pane">
+          <div class="pane-label">Your Notion database</div>
+          <p class="empty-note">Nothing saved yet. Press the button.</p>
+          <div class="notion-page">
+            <div class="np-title fade">How to Do Great Work</div>
+            <div class="prop fade"><span class="k">Author</span><span class="v">Paul Graham</span></div>
+            <div class="prop fade"><span class="k">Published</span><span class="v">July 2023</span></div>
+            <div class="prop fade"><span class="k">Tags</span><span class="v"><span class="chip">Essays</span> <span class="chip">To read</span></span></div>
+            <div class="np-body fade">Full article, links and formatting intact.</div>
+          </div>
+        </div>
+      </div>
+      <div class="demo-foot">
+        <button class="btn btn-primary" id="clipBtn" type="button">Clip this page</button>
+        <span class="status" id="status"><span class="dot"></span><span id="statusText">Ready — this is the real flow, in miniature</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="sec-head">
+      <span class="eyebrow">What it does</span>
+      <h2>Built for the parts of clipping that usually go wrong</h2>
+    </div>
+    <div class="grid-3">
+      <div class="feature">
+        <h3>It finds the actual article</h3>
+        <p>Menus, sidebars, cookie banners and comment sections stay behind. Links stay clickable, bold stays bold, and code blocks, quotes, lists and images come along.</p>
+        <p class="detail">reads inside web components and lazy-loaded images</p>
+      </div>
+      <div class="feature">
+        <h3>Properties filled in before saving</h3>
+        <p>Author, source and publication date are picked up from the page. Pick a status and tags in the popup, and the page lands in Notion finished instead of as a row to clean up later.</p>
+        <p class="detail">remembers your usual database and values</p>
+      </div>
+      <div class="feature">
+        <h3>It knows what you already saved</h3>
+        <p>Open an article that's already in your database and Clipwise links you straight to the page you have, instead of quietly making a second one.</p>
+        <p class="detail">?utm_source, fbclid, gclid and friends are ignored</p>
+      </div>
+      <div class="feature">
+        <h3>It says when a page is thin</h3>
+        <p>If a page yields almost no text, Clipwise tells you before saving — so you don't find an empty page in your database three weeks later.</p>
+        <p class="detail">plain-language errors, never a red exclamation mark</p>
+      </div>
+      <div class="feature">
+        <h3>One shortcut for the rest</h3>
+        <p>Pages you just want kept go straight to your last database without anything opening at all.</p>
+        <p class="detail">Ctrl+Shift+S — Cmd+Shift+S on a Mac</p>
+      </div>
+      <div class="feature">
+        <h3>Set up in about two minutes</h3>
+        <p>A short guide opens after installing and checks off each step as you finish it. No account to create, because there's nothing to create it with.</p>
+        <p class="detail">works with your own Notion integration secret</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">In the popup</span>
+      <h2>What it looks like while you use it</h2>
+    </div>
+    <div class="shots">
+      <div class="shot">
+        <img src="shots/properties.png" alt="The Clipwise popup with a database selected and its properties filled in">
+        <p>Choose the database, set status and tags, and save. The second clip takes one click.</p>
+      </div>
+      <div class="shot">
+        <img src="shots/duplicates.png" alt="Clipwise showing that the page is already saved, with a link to the existing Notion page">
+        <p>Already saved? You get a link to the page you have, not a duplicate.</p>
+      </div>
+      <div class="shot">
+        <img src="shots/warning.png" alt="Clipwise warning that a page yields very little text">
+        <p>A page with almost no text says so before it goes anywhere.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="sec-head">
+      <span class="eyebrow">Privacy</span>
+      <h2>There is no server to trust, because there is no server</h2>
+      <p class="lede">Most clippers ask you to sign in with them first, which means your pages travel through someone else's machine. Clipwise talks to one host and one host only.</p>
+    </div>
+    <div class="privacy">
+      <div class="flow">
+        <span class="packet" aria-hidden="true"></span>
+        <span class="packet blocked" aria-hidden="true"></span>
+        <div>your browser</div>
+        <div><span class="arrow">└─▶</span> api.notion.com &nbsp;<span style="opacity:.7">(your workspace)</span></div>
+        <div><span class="never">└─▶ clipwise servers</span></div>
+        <div><span class="never">└─▶ analytics</span></div>
+        <div style="margin-top:6px">secret stored in <span style="color:var(--ink)">chrome.storage.local</span></div>
+        <div>permissions: activeTab, scripting, storage</div>
+      </div>
+      <ul class="never-list">
+        <li><span class="x">×</span><span>No account, no login, no email address.</span></li>
+        <li><span class="x">×</span><span>No analytics, telemetry or crash reporting inside the extension.</span></li>
+        <li><span class="x">×</span><span>Nothing runs on a page until you click the icon or press the shortcut.</span></li>
+        <li><span class="x">×</span><span>Your Notion secret stays on your computer and is sent only to Notion.</span></li>
+        <li><span class="x">×</span><span>Clipping stays free. It will never sit behind a paywall.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Setup</span>
+      <h2>Three steps, once</h2>
+    </div>
+    <div class="steps-wrap">
+    <div class="rail" aria-hidden="true"><i id="railFill"></i></div>
+    <div class="steps">
+      <div class="step">
+        <span class="num" aria-hidden="true"></span>
+        <h3>Create an integration</h3>
+        <p>At <code>notion.so/my-integrations</code>, make an internal integration and copy the secret that starts with <code>ntn_</code>.</p>
+      </div>
+      <div class="step">
+        <span class="num" aria-hidden="true"></span>
+        <h3>Paste it into Clipwise</h3>
+        <p>The setup guide opens by itself after installing. Paste the secret there — it goes no further than your own browser.</p>
+      </div>
+      <div class="step">
+        <span class="num" aria-hidden="true"></span>
+        <h3>Share a database with it</h3>
+        <p>In Notion, open the database you clip into, choose <code>··· › Connections</code> and add the integration. That's it.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Questions</span>
+      <h2>The things people ask first</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Is it really free?</summary>
+        <p>Yes, and clipping stays free. If a paid tier ever arrives it will be for things like templates and automation — never for saving a page, because that's the whole point of the extension.</p>
+      </details>
+      <details>
+        <summary>Why do I need a Notion integration secret?</summary>
+        <p>It's how Notion lets a tool write into your workspace without a middleman. Other clippers avoid that step by putting their own account and server in between. This way the connection is yours, and you can revoke it in Notion at any time.</p>
+      </details>
+      <details>
+        <summary>What about Firefox, Safari or mobile?</summary>
+        <p>Chrome and Chromium browsers (Edge, Brave, Arc) today. Firefox and Safari need their own store listings, which is more work than it sounds, so they're not promised yet.</p>
+      </details>
+      <details>
+        <summary>Which pages does it struggle with?</summary>
+        <p>Pages built entirely out of images, and sites that load their article only after you scroll. If you find one that comes through wrong, that's the most useful thing you can send me — most fixes in version 0.2 started as exactly that kind of report.</p>
+      </details>
+      <details>
+        <summary>Who makes this?</summary>
+        <p>One person: Roan, a developer in the Netherlands. Clipwise started because every clipper I tried wanted an account before it would talk to my own Notion.</p>
+      </details>
+    </div>
+  </section>
+
+  <div class="closer">
+    <h2>Clip the next thing you were going to lose in a tab</h2>
+    <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add Clipwise to Chrome</a>
+  </div>
+
+  <footer>
+    <span>Clipwise — made by Roan in the Netherlands</span>
+    <span class="spacer"></span>
+    <a href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Chrome Web Store</a>
+    <a href="https://nimble-knee-ef0.notion.site/Clipwise-Privacy-Policy-3cf53e2122c880749bdada082fd50a1a">Privacy policy</a>
+    <span>Not affiliated with Notion Labs, Inc.</span>
+  </footer>
+</div>
+
+<script>
+  /* ---------- scroll progress ---------- */
+  (function () {
+    var bar = document.getElementById('progress');
+    function update() {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? window.scrollY / h : 0;
+      bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- ticker: double the row so the loop is seamless ---------- */
+  (function () {
+    var track = document.getElementById('tickerTrack');
+    if (!track) { return; }
+    track.innerHTML += track.innerHTML;
+  })();
+
+  /* ---------- reveal on entry (nothing is hidden without JS) ---------- */
+  (function () {
+    if (REDUCE || !('IntersectionObserver' in window)) { return; }
+    var targets = document.querySelectorAll('.sec-head, .feature, .shot, .step, .flow, .never-list, .closer');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    targets.forEach(function (el) {
+      var box = el.getBoundingClientRect();
+      if (box.top < window.innerHeight * 0.9) { el.classList.add('reveal', 'seen'); }
+      else { el.classList.add('reveal'); io.observe(el); }
+    });
+  })();
+
+  /* ---------- magnetic buttons ---------- */
+  (function () {
+    if (REDUCE || window.matchMedia('(hover: none)').matches) { return; }
+    document.querySelectorAll('.btn').forEach(function (btn) {
+      btn.addEventListener('pointermove', function (e) {
+        var r = btn.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+        var dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+        btn.style.transform = 'translate(' + (dx * 6).toFixed(2) + 'px,' + (dy * 4 - 1).toFixed(2) + 'px)';
+      });
+      btn.addEventListener('pointerleave', function () { btn.style.transform = ''; });
+    });
+  })();
+
+  /* ---------- steps rail fills as you pass it ---------- */
+  (function () {
+    var rail = document.getElementById('railFill');
+    var wrap = rail && rail.closest('.steps-wrap');
+    if (!rail || !wrap) { return; }
+    function update() {
+      var r = wrap.getBoundingClientRect();
+      var start = window.innerHeight * 0.85;
+      var span = r.height + start - window.innerHeight * 0.3;
+      var p = Math.min(1, Math.max(0, (start - r.top) / span));
+      rail.style.transform = 'scaleX(' + p.toFixed(3) + ')';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  /* ---------- faq: animate the answer open ---------- */
+  (function () {
+    document.querySelectorAll('.faq details').forEach(function (d) {
+      var p = d.querySelector('p');
+      if (!p) { return; }
+      var box = document.createElement('div');
+      box.className = 'answer';
+      d.insertBefore(box, p);
+      box.appendChild(p);
+      if (d.open) { box.style.maxHeight = p.scrollHeight + 20 + 'px'; }
+      d.addEventListener('toggle', function () {
+        box.style.maxHeight = d.open ? (p.scrollHeight + 20) + 'px' : '0px';
+      });
+    });
+  })();
+
+  /* ---------- clip demo ---------- */
+  (function () {
+    var demo = document.getElementById('demo');
+    var btn = document.getElementById('clipBtn');
+    var status = document.getElementById('status');
+    var text = document.getElementById('statusText');
+    var state = 0;
+    btn.addEventListener('click', function () {
+      if (window.__clipSpin) { window.__clipSpin(); }
+      if (state === 0) {
+        demo.classList.add('clipped');
+        status.className = 'status ok';
+        text.textContent = 'Saved to Reading list — 34 blocks';
+        btn.textContent = 'Clip it again';
+        state = 1;
+      } else if (state === 1) {
+        status.className = 'status dup';
+        text.textContent = 'Already saved — opens the page you have';
+        btn.textContent = 'Start over';
+        state = 2;
+      } else {
+        demo.classList.remove('clipped');
+        status.className = 'status';
+        text.textContent = 'Ready — this is the real flow, in miniature';
+        btn.textContent = 'Clip this page';
+        state = 0;
+      }
+    });
+  })();
+
+  /* ---------- the paperclip ---------- */
+  (function () {
+    var canvas = document.getElementById('clip3d');
+    if (!canvas || typeof THREE === 'undefined') { return; }
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+    camera.position.set(0, 0, 6.4);
+
+    var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+    /* wire path: three straight runs joined by two U-turns, the way a real clip is bent */
+    function arc(pts, cx, cy, r, a0, a1, z0, z1, steps) {
+      for (var i = 0; i <= steps; i++) {
+        var t = i / steps;
+        var a = a0 + (a1 - a0) * t;
+        pts.push(new THREE.Vector3(cx + Math.cos(a) * r, cy + Math.sin(a) * r, z0 + (z1 - z0) * t));
+      }
+    }
+    var P = Math.PI;
+    var pts = [];
+    pts.push(new THREE.Vector3(0.00, 0.55, 0.075));
+    pts.push(new THREE.Vector3(0.00, -0.75, 0.075));
+    arc(pts, 0.30, -0.75, 0.30, P, 2 * P, 0.075, 0.03, 26);
+    pts.push(new THREE.Vector3(0.60, 0.95, 0.0));
+    arc(pts, 0.00, 0.95, 0.60, 0, P, 0.0, -0.03, 34);
+    pts.push(new THREE.Vector3(-0.60, -0.45, -0.06));
+    arc(pts, -0.30, -0.45, 0.30, P, 2 * P, -0.06, -0.075, 26);
+    pts.push(new THREE.Vector3(0.00, 0.28, -0.075));
+
+    var curve = new THREE.CatmullRomCurve3(pts, false, 'catmullrom', 0.04);
+    var mat = new THREE.MeshStandardMaterial({ color: 0x2a78d6, metalness: 0.62, roughness: 0.3 });
+    var clip = new THREE.Mesh(new THREE.TubeGeometry(curve, 420, 0.062, 18, false), mat);
+
+    /* the clip draws itself in, the way it would be bent from one piece of wire */
+    var total = clip.geometry.index.count;
+    clip.geometry.setDrawRange(0, reduce ? total : 0);
+
+    var capGeo = new THREE.SphereGeometry(0.062, 16, 12);
+    var a = new THREE.Mesh(capGeo, mat); a.position.copy(pts[0]);
+    var b = new THREE.Mesh(capGeo, mat); b.position.copy(pts[pts.length - 1]);
+    b.visible = !!reduce;
+
+    var group = new THREE.Group();
+    group.add(clip); group.add(a); group.add(b);
+    group.scale.setScalar(1.12);
+    scene.add(group);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+    var key = new THREE.DirectionalLight(0xffffff, 0.95); key.position.set(3, 4, 5); scene.add(key);
+    var rim = new THREE.DirectionalLight(0x9ec8ff, 0.7); rim.position.set(-4, -1, 2); scene.add(rim);
+
+    function resize() {
+      var w = canvas.clientWidth || 400;
+      var h = canvas.clientHeight || 380;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    var scrollT = 0, targetScroll = 0, mx = 0, my = 0, tmx = 0, tmy = 0;
+    window.addEventListener('scroll', function () {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      targetScroll = h > 0 ? window.scrollY / h : 0;
+    }, { passive: true });
+    window.addEventListener('pointermove', function (e) {
+      tmx = (e.clientX / window.innerWidth - 0.5) * 2;
+      tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    var spin = 0;
+    window.__clipSpin = function () { spin = Math.PI * 2; };
+
+    var t0 = performance.now();
+    function frame(now) {
+      var t = (now - t0) / 1000;
+      scrollT += (targetScroll - scrollT) * 0.08;
+      mx += (tmx - mx) * 0.05;
+      my += (tmy - my) * 0.05;
+      spin *= 0.94;
+
+      if (!reduce) {
+        var draw = Math.min(1, t / 1.9);
+        var eased = 1 - Math.pow(1 - draw, 3);
+        clip.geometry.setDrawRange(0, Math.floor(total * eased / 6) * 6);
+        b.visible = draw > 0.985;
+        key.position.set(Math.cos(t * 0.4) * 4, 4, Math.sin(t * 0.4) * 4 + 2);
+      }
+
+      group.rotation.y = spin + (reduce ? 0.6 : t * 0.55) + mx * 0.3;
+      group.rotation.x = -0.14 + Math.sin(reduce ? 0 : t * 0.5) * 0.1 - my * 0.18;
+      group.rotation.z = Math.sin(reduce ? 0 : t * 0.35) * 0.06;
+      group.position.y = -0.26 + (reduce ? 0 : Math.sin(t * 0.8) * 0.06);
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>
