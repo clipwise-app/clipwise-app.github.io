@@ -1,0 +1,282 @@
+<title>Clipwise Setup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --paper: #f6f4ef; --card: #fffefb; --ink: #15140f; --ink-soft: #57544a;
+    --ink-faint: #8b8778; --line: #e2ddd1; --line-soft: #ece8dd;
+    --blue: #2a78d6; --blue-ink: #1b5aa6; --blue-wash: #e8f0fb;
+    --amber: #b57905; --amber-wash: #fbf1dc; --green: #0a7d20;
+    --shadow: 0 1px 2px rgba(21,20,15,.05), 0 12px 32px -18px rgba(21,20,15,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+      --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+      --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+      --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+    --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+    --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+    --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+  }
+
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5.4vw, 3rem); line-height: 1.06; }
+  h2 { font-size: 1.32rem; }
+  h3 { font-size: 1rem; }
+  p { margin: 0; }
+  a { color: var(--blue-ink); }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .86em;
+    background: var(--line-soft); border-radius: 4px; padding: 1px 6px; color: var(--ink);
+    word-break: break-word;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint);
+  }
+
+  .top { display: flex; align-items: center; gap: 12px; padding-block: 22px; }
+  .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+  .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .top .spacer { flex: 1; }
+  .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
+  .top a.textlink:hover { color: var(--ink); }
+
+  .intro { display: flex; flex-direction: column; gap: 16px; padding-block: 10px 30px; }
+  .intro p { font-family: Newsreader, Georgia, serif; font-size: 1.18rem; color: var(--ink-soft); }
+
+  .toc {
+    display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line);
+    border-radius: 10px; padding: 14px 16px; background: var(--card);
+  }
+  .toc a { display: flex; gap: 10px; text-decoration: none; color: var(--ink-soft); font-size: .95rem; padding-block: 4px; }
+  .toc a:hover { color: var(--ink); }
+  .toc .n { font-family: "IBM Plex Mono", ui-monospace, monospace; color: var(--blue); font-size: .82rem; width: 18px; }
+
+  .stepblock { border-top: 1px solid var(--line-soft); padding-block: 34px; display: flex; flex-direction: column; gap: 16px; }
+  .stephead { display: flex; align-items: baseline; gap: 12px; }
+  .stephead .badge {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--blue);
+    border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px;
+    display: grid; place-items: center; flex: none;
+  }
+  .stepblock p { color: var(--ink-soft); }
+  .stepblock ol, .stepblock ul { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px; }
+  .stepblock li::marker { color: var(--ink-faint); }
+
+  .note {
+    border-left: 3px solid var(--amber); background: var(--amber-wash);
+    border-radius: 0 8px 8px 0; padding: 12px 14px; font-size: .94rem; color: var(--ink-soft);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .note b { color: var(--ink); }
+  .tip { border-left-color: var(--blue); background: var(--blue-wash); }
+
+  /* stylised pictures of what you'll see */
+  .pic {
+    border: 1px solid var(--line); border-radius: 10px; background: var(--card);
+    padding: 14px; box-shadow: var(--shadow); font-size: .86rem; color: var(--ink-soft);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .pic .caption { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .fakebar { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--line-soft); padding-bottom: 10px; }
+  .fakebar .title { font-weight: 500; color: var(--ink); }
+  .fakebar .dots { margin-left: auto; letter-spacing: 2px; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; }
+  .menu { display: flex; flex-direction: column; gap: 4px; }
+  .menu div { padding: 6px 8px; border-radius: 6px; }
+  .menu div.hl { background: var(--blue-wash); color: var(--blue-ink); font-weight: 500; display: flex; justify-content: space-between; }
+  .field {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .8rem;
+    border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; background: var(--paper);
+    display: flex; justify-content: space-between; gap: 10px; align-items: center; overflow-x: auto;
+  }
+  .field .copy { color: var(--blue); flex: none; }
+
+  .trouble { border-top: 1px solid var(--line-soft); padding-block: 34px; }
+  .trouble details { border-bottom: 1px solid var(--line-soft); padding-block: 13px; }
+  .trouble summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+  .trouble summary::-webkit-details-marker { display: none; }
+  .trouble summary::after { content: "+"; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; }
+  .trouble details[open] summary::after { content: "–"; color: var(--blue); }
+  .trouble p { margin-top: 10px; color: var(--ink-soft); font-size: .95rem; }
+  .trouble p + p { margin-top: 8px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px;
+    font: 500 .96rem/1 "Schibsted Grotesk", system-ui, sans-serif; text-decoration: none;
+    background: var(--blue); color: #fff; box-shadow: var(--shadow); transition: background .2s ease, transform .18s ease;
+  }
+  :root[data-theme="dark"] .btn { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { color: #0f1420; } }
+  .btn:hover { background: var(--blue-ink); transform: translateY(-1px); }
+
+  .closer { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; border-top: 1px solid var(--line-soft); padding-block: 34px; }
+  footer {
+    border-top: 1px solid var(--line-soft); padding-block: 22px 40px;
+    display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .86rem; color: var(--ink-faint);
+  }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer .spacer { flex: 1; }
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
+    <span class="spacer"></span>
+    <a class="textlink" href="./">Home</a>
+    <a class="textlink" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Chrome Web Store</a>
+  </div>
+
+  <div class="intro">
+    <span class="eyebrow">Setup guide</span>
+    <h1>Connect Clipwise to Notion in about two minutes</h1>
+    <p>Clipwise has no account, so instead of signing in you hand it a key that Notion gives you. That key decides exactly which databases it may write to — and you can take it away again at any time. Here's every step, including the two places people usually get stuck.</p>
+    <div class="toc">
+      <a href="#s1"><span class="n">1</span>Install the extension</a>
+      <a href="#s2"><span class="n">2</span>Create your Notion integration</a>
+      <a href="#s3"><span class="n">3</span>Paste the secret into Clipwise</a>
+      <a href="#s4"><span class="n">4</span>Connect your database <span style="color:var(--amber)">← most people get stuck here</span></a>
+      <a href="#s5"><span class="n">5</span>Clip your first page</a>
+      <a href="#trouble"><span class="n">?</span>Something's not working</a>
+    </div>
+  </div>
+
+  <div class="stepblock" id="s1">
+    <div class="stephead"><span class="badge">1</span><h2>Install the extension</h2></div>
+    <p>Clipwise runs on Chrome and on browsers built on it: Edge, Brave, Arc and Opera. Install it from the Chrome Web Store, and a setup guide opens by itself in a new tab.</p>
+    <p><a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add Clipwise to Chrome — free</a></p>
+    <div class="note tip">
+      <span><b>Pin it to your toolbar.</b> Click the puzzle-piece icon at the top right of your browser, find Clipwise in the list and click the pin. Otherwise the icon hides in that menu and you'll think it didn't install.</span>
+    </div>
+  </div>
+
+  <div class="stepblock" id="s2">
+    <div class="stephead"><span class="badge">2</span><h2>Create your Notion integration</h2></div>
+    <p>An integration is Notion's way of letting a tool write into your workspace without a middleman. Making one is free and takes about thirty seconds.</p>
+    <ol>
+      <li>Go to <code>notion.so/my-integrations</code> and click <b>New integration</b>.</li>
+      <li>Give it a name — <code>Clipwise</code> works fine. Nobody else sees this name.</li>
+      <li>Pick the workspace you clip into, and leave the type on <b>Internal</b>.</li>
+      <li>Click <b>Save</b>, then open the integration and copy the <b>Internal Integration Secret</b>.</li>
+    </ol>
+    <div class="pic">
+      <span class="caption">what you're copying</span>
+      <div class="field"><span>ntn_4182b93f7c2a…</span><span class="copy">Copy</span></div>
+      <span>It always starts with <code>ntn_</code>. Older integrations start with <code>secret_</code> and those still work.</span>
+    </div>
+    <div class="note">
+      <span><b>Choose Internal, not Public.</b> Public integrations are for apps that other people log into, they need a review by Notion, and Clipwise can't use one. If the form starts asking you for a website and a privacy policy, you picked Public — go back and switch.</span>
+    </div>
+  </div>
+
+  <div class="stepblock" id="s3">
+    <div class="stephead"><span class="badge">3</span><h2>Paste the secret into Clipwise</h2></div>
+    <p>Open the setup guide that appeared after installing, or click the Clipwise icon and go to its settings. Paste the secret in the field and save.</p>
+    <p>That secret is stored in your own browser, in <code>chrome.storage.local</code>. It is sent to one place only: Notion's own API. There is no Clipwise server it could travel through, because there isn't one.</p>
+    <div class="note tip">
+      <span><b>Lost the secret?</b> Notion shows it again on the integration's page — open <code>notion.so/my-integrations</code>, click your integration and reveal it there. If you'd rather start fresh, make a new integration and paste the new secret over the old one.</span>
+    </div>
+  </div>
+
+  <div class="stepblock" id="s4">
+    <div class="stephead"><span class="badge">4</span><h2>Connect your database to the integration</h2></div>
+    <p>This is the step almost everyone misses. Creating the integration doesn't give it access to anything yet — you decide per database. Until you do this, Clipwise's database list stays empty, which looks like a bug but isn't.</p>
+    <ol>
+      <li>Open the database you want to clip into, as a full page rather than as a small table inside another page.</li>
+      <li>Click the <b>···</b> menu at the top right of that page.</li>
+      <li>Choose <b>Connections</b>, then <b>Connect to</b>, and pick your integration.</li>
+      <li>Confirm. Notion asks once whether the integration may access this page.</li>
+    </ol>
+    <div class="pic">
+      <span class="caption">the menu you're looking for</span>
+      <div class="fakebar"><span class="title">Reading list</span><span class="dots">···</span></div>
+      <div class="menu">
+        <div>Copy link</div>
+        <div>Duplicate</div>
+        <div>Move to</div>
+        <div class="hl"><span>Connections</span><span>›</span></div>
+        <div>Customize page</div>
+      </div>
+    </div>
+    <div class="note">
+      <span><b>It has to be a database, not an ordinary page.</b> Clipwise saves a page as a new row, which only exists in a database — a table, board, list, calendar or gallery. If you connected a plain page, the list in Clipwise stays empty.</span>
+      <span>Clipping into several databases? Repeat this for each one. Sharing a parent page shares everything inside it too.</span>
+    </div>
+  </div>
+
+  <div class="stepblock" id="s5">
+    <div class="stephead"><span class="badge">5</span><h2>Clip your first page</h2></div>
+    <p>Open any article and click the Clipwise icon. Your database is in the list, the fields that the page tells us about are already filled in, and you pick a status or tags yourself. Click <b>Save to Notion</b> and you get a link straight to the new page.</p>
+    <ul>
+      <li>The next clip is quicker: your last database and your usual values are remembered.</li>
+      <li>For pages you just want kept, press <code>Ctrl+Shift+S</code> (<code>Cmd+Shift+S</code> on a Mac). It saves to your last database without opening anything.</li>
+      <li>Open an article you've already clipped and Clipwise links you to the page you have, instead of making a second one.</li>
+    </ul>
+    <div class="note tip">
+      <span><b>Change the shortcut:</b> go to <code>chrome://extensions/shortcuts</code> and set whatever you like. Useful if another extension already claimed that combination.</span>
+    </div>
+  </div>
+
+  <div class="trouble" id="trouble">
+    <h2 style="margin-bottom:14px">Something's not working</h2>
+    <details>
+      <summary>My database isn't in the list</summary>
+      <p>Nine times out of ten the database isn't connected to the integration yet — go back to <a href="#s4">step 4</a>. Notion only shows a tool what you explicitly hand it.</p>
+      <p>Already done that? Two more things to check: it must be a real database rather than a plain page, and it must live in the same workspace you selected when creating the integration. Switching workspaces means making a second integration for that one.</p>
+    </details>
+    <details>
+      <summary>It says the token is invalid or unauthorized</summary>
+      <p>Usually a copying slip: a missing character, or a space at the end. Copy the secret again from <code>notion.so/my-integrations</code> and paste it fresh.</p>
+      <p>If it still refuses, the integration may have been deleted or its secret regenerated in Notion. Make a new integration, paste the new secret and connect your database to it again.</p>
+    </details>
+    <details>
+      <summary>The clipped page is empty or half missing</summary>
+      <p>Some pages only load their article once you scroll, and some are built entirely out of images, which leaves nothing to save. Scroll through the article once before clipping and try again — that fixes most cases.</p>
+      <p>Still wrong? Send me the address of that page. Genuinely: most of the improvements in version 0.2 started as exactly that kind of message.</p>
+    </details>
+    <details>
+      <summary>The keyboard shortcut does nothing</summary>
+      <p>Chrome hands each shortcut to one extension only, so another one may have claimed it first. Open <code>chrome://extensions/shortcuts</code> to see who has it and set a different combination for Clipwise.</p>
+      <p>The shortcut also needs a database to have been used at least once, since it saves to your last one.</p>
+    </details>
+    <details>
+      <summary>I don't see the Clipwise icon</summary>
+      <p>It's hiding in the puzzle-piece menu at the top right of your browser. Open that menu and click the pin next to Clipwise to keep it on the toolbar.</p>
+    </details>
+    <details>
+      <summary>How do I take access away again?</summary>
+      <p>In Notion, open the database, choose <b>··· › Connections</b> and remove the integration. Or delete the whole integration at <code>notion.so/my-integrations</code>, which cuts off every database at once.</p>
+      <p>Uninstalling the extension removes the secret from your browser along with it. Nothing about you is stored anywhere else, because there's nowhere else.</p>
+    </details>
+  </div>
+
+  <div class="closer">
+    <h2>Stuck on something that isn't here?</h2>
+    <p style="color:var(--ink-soft)">Leave it on the Support tab of the Chrome Web Store listing. It's one person reading those, and questions like yours are how this guide got written.</p>
+    <a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki/support">Ask on the Support tab</a>
+  </div>
+
+  <footer>
+    <span>Clipwise — made by Roan in the Netherlands</span>
+    <span class="spacer"></span>
+    <a href="./">Home</a>
+    <a href="https://nimble-knee-ef0.notion.site/Clipwise-Privacy-Policy-3cf53e2122c880749bdada082fd50a1a">Privacy policy</a>
+    <span>Not affiliated with Notion Labs, Inc.</span>
+  </footer>
+</div>
