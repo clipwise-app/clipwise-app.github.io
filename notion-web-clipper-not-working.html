@@ -1,0 +1,272 @@
+<title>Notion Web Clipper Not Working? 7 Fixes</title>
+<meta name="description" content="Notion Web Clipper not saving, saving only a link, or missing half the page? Seven fixes that actually work, and what to do when the clipper itself is the problem.">
+<link rel="canonical" href="https://clipwise-app.github.io/notion-web-clipper-not-working.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why is my Notion Web Clipper not saving anything?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The clipper uses the Notion login in your browser. If you're logged out of notion.so, logged into a different account, or your browser blocks cookies for notion.so, the clipper can't save. Log into notion.so in the same browser, allow its cookies, and reload the page you want to clip." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does Notion Web Clipper only save a link or part of the page?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Notion itself notes that some page content can go missing depending on how a website is built. There is no setting to fix it. Scrolling through the article before clipping helps on sites that load content lazily; otherwise a clipper that extracts the article itself, such as Clipwise, will save the full text." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I fill in database properties with the Notion Web Clipper?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. According to Notion's help page, tags can't be added while clipping; you have to open the page in Notion afterwards. Clipwise lets you set status, tags and other properties in the popup before saving." }
+    },
+    {
+      "@type": "Question",
+      "name": "My database doesn't show up in the Notion Web Clipper",
+      "acceptedAnswer": { "@type": "Answer", "text": "Type the database's name in the Add to search box instead of scrolling the list, and make sure you're in the right workspace. You can also create a new links database from the same menu." }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --paper: #f6f4ef; --card: #fffefb; --ink: #15140f; --ink-soft: #57544a;
+    --ink-faint: #8b8778; --line: #e2ddd1; --line-soft: #ece8dd;
+    --blue: #2a78d6; --blue-ink: #1b5aa6; --blue-wash: #e8f0fb;
+    --amber: #b57905; --amber-wash: #fbf1dc; --green: #0a7d20;
+    --shadow: 0 1px 2px rgba(21,20,15,.05), 0 12px 32px -18px rgba(21,20,15,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+      --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+      --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+      --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+    --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+    --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+    --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+  }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 740px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5.4vw, 2.9rem); line-height: 1.07; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.02rem; }
+  p { margin: 0; }
+  a { color: var(--blue-ink); }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .86em; background: var(--line-soft); border-radius: 4px; padding: 1px 6px; color: var(--ink); }
+  .eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .top { display: flex; align-items: center; gap: 12px; padding-block: 22px; }
+  .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+  .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .top .spacer { flex: 1; }
+  .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
+  .top a.textlink:hover { color: var(--ink); }
+
+  .intro { display: flex; flex-direction: column; gap: 16px; padding-block: 12px 26px; }
+  .intro .lede { font-family: Newsreader, Georgia, serif; font-size: 1.2rem; color: var(--ink-soft); }
+
+  .quick { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .quick h2 { font-size: 1rem; }
+  .quick ol { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 4px; }
+  .quick a { text-decoration: none; }
+  .quick a:hover { text-decoration: underline; }
+
+  .fix { border-top: 1px solid var(--line-soft); padding-block: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .fix .head { display: flex; gap: 12px; align-items: baseline; }
+  .fix .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--blue); border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; flex: none; }
+  .fix p, .fix li { color: var(--ink-soft); }
+  .fix ol, .fix ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .symptom { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .76rem; color: var(--ink-faint); }
+  .note { border-left: 3px solid var(--amber); background: var(--amber-wash); border-radius: 0 8px 8px 0; padding: 12px 14px; font-size: .94rem; color: var(--ink-soft); }
+  .note b { color: var(--ink); }
+
+  .alt { margin-block: 12px 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .alt .lede { font-family: Newsreader, Georgia, serif; font-size: 1.1rem; color: var(--ink-soft); }
+  .tbl { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 440px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  td:first-child { color: var(--ink); font-weight: 500; }
+  td { color: var(--ink-soft); }
+  .yes { color: var(--green); font-weight: 500; }
+  .fair { font-size: .88rem; color: var(--ink-faint); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px; font: 500 .96rem/1 "Schibsted Grotesk", system-ui, sans-serif; text-decoration: none; background: var(--blue); color: #fff; box-shadow: var(--shadow); transition: background .2s ease, transform .18s ease; }
+  :root[data-theme="dark"] .btn { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { color: #0f1420; } }
+  .btn:hover { background: var(--blue-ink); transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .faq { border-top: 1px solid var(--line-soft); padding-block: 28px; }
+  .faq details { border-bottom: 1px solid var(--line-soft); padding-block: 13px; }
+  .faq summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; }
+  .faq details[open] summary::after { content: "–"; color: var(--blue); }
+  .faq p { margin-top: 10px; color: var(--ink-soft); font-size: .95rem; }
+
+  footer { border-top: 1px solid var(--line-soft); padding-block: 22px 40px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .86rem; color: var(--ink-faint); }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer .spacer { flex: 1; }
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
+    <span class="spacer"></span>
+    <a class="textlink" href="./">Home</a>
+    <a class="textlink" href="setup.html">Setup guide</a>
+  </div>
+
+  <div class="intro">
+    <span class="eyebrow">Troubleshooting · updated September 2026</span>
+    <h1>Notion Web Clipper not working? Seven fixes that actually help</h1>
+    <p class="lede">The clipper saves nothing, saves only a link, or drops half the article. Most of the time it's one of a handful of causes, and most of them take a minute to fix. Here they are, in the order worth trying — and what to do when the problem is the clipper itself.</p>
+    <div class="quick">
+      <h2>Jump to your problem</h2>
+      <ol>
+        <li><a href="#f1">It doesn't save anything, or asks you to log in</a></li>
+        <li><a href="#f2">It saves to the wrong account or workspace</a></li>
+        <li><a href="#f3">It stopped working after a browser or privacy change</a></li>
+        <li><a href="#f4">Your database isn't in the "Add to" list</a></li>
+        <li><a href="#f5">It saves only a link, or half the page</a></li>
+        <li><a href="#f6">You can't set tags or properties while clipping</a></li>
+        <li><a href="#f7">Nothing above worked</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="fix" id="f1">
+    <div class="head"><span class="n">1</span><h2>Log into notion.so in the same browser</h2></div>
+    <p class="symptom">symptom: nothing saves, a spinner that never finishes, or a login prompt</p>
+    <p>The official clipper doesn't have its own login. It borrows the Notion session in your browser, so if you're logged out of <code>notion.so</code> in that browser — or only use the Notion desktop app — it has nothing to save with.</p>
+    <ol>
+      <li>Open <code>notion.so</code> in a new tab of the same browser and log in.</li>
+      <li>Go back to the page you wanted to clip and reload it.</li>
+      <li>Click the clipper again.</li>
+    </ol>
+  </div>
+
+  <div class="fix" id="f2">
+    <div class="head"><span class="n">2</span><h2>Check which account and workspace it's using</h2></div>
+    <p class="symptom">symptom: the clip "works", but it isn't where you expected</p>
+    <p>If you use more than one Notion account — say a work and a personal one — the clipper saves to whichever you're logged into in the browser. Log out of notion.so, log back in with the account you actually want, and then pick the right workspace in the clipper's menu.</p>
+  </div>
+
+  <div class="fix" id="f3">
+    <div class="head"><span class="n">3</span><h2>Let notion.so keep its cookies</h2></div>
+    <p class="symptom">symptom: it used to work, then stopped after a browser update or a new extension</p>
+    <p>Because the clipper relies on your Notion login, anything that clears or blocks Notion's cookies can break it: strict privacy settings, "clear cookies on exit", or ad and tracker blockers.</p>
+    <ul>
+      <li>In your browser's cookie or privacy settings, add <code>notion.so</code> to the sites that are always allowed to use cookies, and make sure it isn't cleared when you close the browser.</li>
+      <li>Temporarily switch off ad or privacy blockers on the page you're clipping, and try again.</li>
+      <li>Restart the browser after changing these settings.</li>
+    </ul>
+  </div>
+
+  <div class="fix" id="f4">
+    <div class="head"><span class="n">4</span><h2>Search for your database instead of scrolling</h2></div>
+    <p class="symptom">symptom: your reading list or database isn't in the list</p>
+    <p>The "Add to" menu doesn't always list everything. Type part of the database's name into its search box, and check you're in the right workspace (see fix 2). If you just want somewhere to save, the same menu can create a new links database for you.</p>
+  </div>
+
+  <div class="fix" id="f5">
+    <div class="head"><span class="n">5</span><h2>If it saves only a link or half the article</h2></div>
+    <p class="symptom">symptom: a page with a title and a few lines, or just a bookmark</p>
+    <p>This one is the clipper, not you. Notion's own help page says content can go missing depending on how a website is built, and there's no setting that fixes it. Two things sometimes help:</p>
+    <ul>
+      <li><b>Scroll through the whole article first.</b> Many sites only load text and images as you scroll, and the clipper saves what's there at that moment.</li>
+      <li><b>Try again after the page has fully loaded,</b> especially on news sites with heavy scripts.</li>
+    </ul>
+    <div class="note"><b>Still half empty?</b> Sites built from web components, old table layouts or heavy scripts often come through wrong no matter what you do. A clipper that finds the article itself, instead of copying the page as-is, is the real fix — see below.</div>
+  </div>
+
+  <div class="fix" id="f6">
+    <div class="head"><span class="n">6</span><h2>Setting tags and properties while you clip</h2></div>
+    <p class="symptom">symptom: every clip lands as a bare row you still have to fill in</p>
+    <p>You're not missing a button: Notion's help page says tags can't be added while clipping. You have to open the saved page in Notion and fill them in afterwards. If that's the part that bothers you, it's a limit of the official clipper rather than something to troubleshoot.</p>
+  </div>
+
+  <div class="fix" id="f7">
+    <div class="head"><span class="n">7</span><h2>Reinstall, and rule out other extensions</h2></div>
+    <p class="symptom">symptom: none of the above changed anything</p>
+    <ol>
+      <li>Remove the Notion Web Clipper from <code>chrome://extensions</code>, restart Chrome, and install it again.</li>
+      <li>Open a guest window or a fresh Chrome profile, install only the clipper, log into notion.so and try one page. If it works there, another extension in your normal profile is getting in the way.</li>
+      <li>If it fails even there, it's a problem on Notion's side — tell their support which page you tried.</li>
+    </ol>
+  </div>
+
+  <div class="alt" id="alternative">
+    <span class="eyebrow">When the clipper itself is the problem</span>
+    <h2>Clipwise: a free web clipper for Notion that saves the whole article</h2>
+    <p class="lede">Fixes 5 and 6 are limits, not bugs, so no setting makes them go away. That's why I built Clipwise. It finds the article itself instead of copying the page as-is, and lets you fill in your database before saving. It's free, and it doesn't use your Notion login at all — so fixes 1 to 3 simply don't apply.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th></th><th>Notion Web Clipper</th><th>Clipwise</th></tr></thead>
+        <tbody>
+          <tr><td>Saves the full article</td><td>varies by site</td><td class="yes">finds the article, skips menus and comments</td></tr>
+          <tr><td>Fill in properties while clipping</td><td>no, afterwards in Notion</td><td class="yes">status, tags, author, date in the popup</td></tr>
+          <tr><td>Needs your Notion browser login</td><td>yes</td><td class="yes">no, uses your own integration key</td></tr>
+          <tr><td>Safari and mobile</td><td class="yes">yes</td><td>no, Chrome and Chromium browsers only</td></tr>
+          <tr><td>Price</td><td>free</td><td>free</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--ink-soft)">Clipwise also tells you when a page is already in your database (even when the URL carries <code>?utm_source</code> junk), warns you when a page yields almost no text, and has a shortcut, <code>Ctrl+Shift+S</code>, that saves straight to your last database.</p>
+    <p class="fair">To be fair to the official one: it works on Safari and on your phone, and it needs no setup at all. Clipwise needs a two-minute setup with a Notion integration key, and only runs on Chrome, Edge, Brave, Arc and Opera.</p>
+    <div class="row">
+      <a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add Clipwise to Chrome — free</a>
+      <a class="btn ghost" href="setup.html">See the setup guide</a>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h2 style="margin-bottom:12px">Quick answers</h2>
+    <details>
+      <summary>Why is my Notion Web Clipper not saving anything?</summary>
+      <p>It uses the Notion login in your browser. Logged out of notion.so, logged into another account, or cookies for notion.so blocked — any of those stops it. Log in on notion.so in the same browser, allow its cookies, and reload the page.</p>
+    </details>
+    <details>
+      <summary>Why does it only save a link or part of the page?</summary>
+      <p>Content can go missing depending on how a site is built, and there's no setting to change that. Scrolling through the article first helps on lazy-loading sites; otherwise use a clipper that extracts the article itself.</p>
+    </details>
+    <details>
+      <summary>Can I add tags while clipping?</summary>
+      <p>Not with the official clipper — you add them in Notion afterwards. Clipwise lets you set tags, status and other properties in the popup before saving.</p>
+    </details>
+    <details>
+      <summary>Is there a Notion web clipper without a login?</summary>
+      <p>Clipwise has no account and no login of its own. You create an integration key in Notion once, paste it into the extension, and it talks straight to Notion's API from your browser. Nothing goes through a server in between.</p>
+    </details>
+  </div>
+
+  <footer>
+    <span>Clipwise — made by Roan in the Netherlands</span>
+    <span class="spacer"></span>
+    <a href="./">Home</a>
+    <a href="setup.html">Setup guide</a>
+    <a href="mailto:roansp27@gmail.com?subject=Clipwise">Contact</a>
+    <span>Not affiliated with Notion Labs, Inc.</span>
+  </footer>
+</div>
