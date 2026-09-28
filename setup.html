@@ -162,6 +162,16 @@
   :root[data-theme="dark"] .pm-save { color: #0f1420; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pm-save { color: #0f1420; } }
   .pm-hint { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .66rem; color: var(--ink-faint); text-align: center; }
+  .pm-hl { border: 1px solid var(--line); border-radius: 6px; background: var(--card); padding: 6px 8px; font-size: .74rem; color: var(--ink-soft); display: flex; flex-direction: column; gap: 4px; }
+  .pm-hl b { font-weight: 500; color: var(--ink); }
+  .pm-hl span { display: flex; justify-content: space-between; gap: 8px; border-left: 3px solid #e8c547; padding-left: 7px; }
+  .pm-hl span i { font-style: normal; color: var(--ink-faint); }
+  .artmock { max-width: 320px; font-family: Newsreader, Georgia, serif; font-size: .98rem; line-height: 1.55; color: var(--ink); }
+  .artmock mark { background: #fde68a; color: #15140f; border-radius: 2px; padding: 0 2px; }
+  .ctxmenu { margin-top: 8px; width: 210px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); box-shadow: var(--shadow); padding: 5px; font-family: system-ui, sans-serif; font-size: .8rem; color: var(--ink-soft); }
+  .ctxmenu div { padding: 5px 9px; border-radius: 5px; }
+  .ctxmenu div.on { background: var(--blue-wash); color: var(--blue-ink); font-weight: 500; }
+  .hlpics { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
 
   .kbd {
     font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .76rem;
@@ -215,6 +225,7 @@
       <a href="#s3"><span class="n">3</span>Paste the secret into Clipwise</a>
       <a href="#s4"><span class="n">4</span>Connect your database <span style="color:var(--amber)">← most people get stuck here</span></a>
       <a href="#s5"><span class="n">5</span>Clip your first page</a>
+      <a href="#s6"><span class="n">6</span>Highlight while you read <span style="color:var(--ink-faint)">— optional</span></a>
       <a href="#trouble"><span class="n">?</span>Something's not working</a>
     </div>
   </div>
@@ -354,6 +365,34 @@
     </div>
   </div>
 
+  <div class="stepblock" id="s6">
+    <div class="stephead"><span class="badge">6</span><h2>Highlight while you read</h2></div>
+    <p>Select a sentence on the page, right-click and choose <b>Highlight with Clipwise</b>. Or press <code>Alt+Shift+H</code>. The text turns yellow. When you save, your highlights go to the top of the Notion page as quotes, and they stay yellow inside the article too.</p>
+    <div class="hlpics">
+      <div class="pic">
+        <span class="caption">1 · select and right-click</span>
+        <div class="artmock">Most of us save more than we read. <mark>Mark the line that answers your question</mark>, and skip the rest.</div>
+        <div class="ctxmenu"><div>Copy</div><div>Search Google for “Mark the…”</div><div class="on">Highlight with Clipwise</div></div>
+      </div>
+      <div class="pic">
+        <span class="caption">2 · they show up in the popup</span>
+        <div class="popupmock">
+          <div class="pm-head">How to build a reading habit<small>The Reading Room · 1 200 words</small></div>
+          <div class="pm-body">
+            <div class="pm-hl"><b>2 highlights on this page, saved along with it</b><span>Mark the line that answers… <i>×</i></span><span>Read the first page today… <i>×</i></span></div>
+            <div class="pm-save">Save to Notion</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul>
+      <li>Remove one by clicking the <b>×</b> next to it in the popup.</li>
+      <li>Closed the tab? Your highlights are kept on your computer until you save. Open the page again and click the Clipwise icon, and they come back.</li>
+      <li>Already saved the page? Highlight more, open Clipwise and click <b>Add highlights to that page</b>.</li>
+      <li>Does your database have a text property with “Highlights” in its name? Clipwise fills that in as well.</li>
+    </ul>
+  </div>
+
   <div class="trouble" id="trouble">
     <h2 style="margin-bottom:14px">Something's not working</h2>
     <details>
@@ -372,7 +411,7 @@
       <p>Still wrong? Send me the address of that page. Genuinely: most of the improvements in version 0.2 started as exactly that kind of message.</p>
     </details>
     <details>
-      <summary>The keyboard shortcut does nothing</summary>
+      <summary>A keyboard shortcut does nothing</summary>
       <p>Chrome hands each shortcut to one extension only, so another one may have claimed it first. Open <code>chrome://extensions/shortcuts</code> to see who has it and set a different combination for Clipwise.</p>
       <p>The shortcut also needs a database to have been used at least once, since it saves to your last one.</p>
     </details>

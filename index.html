@@ -218,7 +218,7 @@
   .feature .detail { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .74rem; color: var(--ink-faint); }
 
   /* ---------- shots ---------- */
-  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 22px; }
   .shot { display: flex; flex-direction: column; gap: 10px; }
   .shot img {
     width: 100%; max-width: 100%; border: 1px solid var(--line); border-radius: var(--radius);
@@ -466,9 +466,9 @@
         <p class="detail">Ctrl+Shift+S — Cmd+Shift+S on a Mac</p>
       </div>
       <div class="feature">
-        <h3>Set up in about two minutes</h3>
-        <p>A short guide opens after installing and checks off each step as you finish it. No account to create, because there's nothing to create it with.</p>
-        <p class="detail">works with your own Notion integration secret</p>
+        <h3>Highlight while you read</h3>
+        <p>Select a sentence and right-click, or press a shortcut. It turns yellow on the page, and when you save, your highlights sit at the top of the Notion page as quotes.</p>
+        <p class="detail">Alt+Shift+H — kept on your computer until you save</p>
       </div>
     </div>
   </section>
@@ -482,6 +482,10 @@
       <div class="shot">
         <img src="shots/properties.png" alt="The Clipwise popup with a database selected and its properties filled in">
         <p>Choose the database, set status and tags, and save. The second clip takes one click.</p>
+      </div>
+      <div class="shot">
+        <img src="shots/highlights.png" alt="Clipwise showing three highlights from the article, which are saved at the top of the Notion page">
+        <p>Highlight as you read. The highlights go along when you save, at the top of the page.</p>
       </div>
       <div class="shot">
         <img src="shots/duplicates.png" alt="Clipwise showing that the page is already saved, with a link to the existing Notion page">
@@ -509,12 +513,12 @@
         <div><span class="never">└─▶ clipwise servers</span></div>
         <div><span class="never">└─▶ analytics</span></div>
         <div style="margin-top:6px">secret stored in <span style="color:var(--ink)">chrome.storage.local</span></div>
-        <div>permissions: activeTab, scripting, storage</div>
+        <div>permissions: activeTab, scripting, storage, contextMenus</div>
       </div>
       <ul class="never-list">
         <li><span class="x">×</span><span>No account, no login, no email address.</span></li>
         <li><span class="x">×</span><span>No analytics, telemetry or crash reporting inside the extension.</span></li>
-        <li><span class="x">×</span><span>Nothing runs on a page until you click the icon or press the shortcut.</span></li>
+        <li><span class="x">×</span><span>Nothing runs on a page until you click the icon, press a shortcut or choose Highlight from the right-click menu.</span></li>
         <li><span class="x">×</span><span>Your Notion secret stays on your computer and is sent only to Notion.</span></li>
         <li><span class="x">×</span><span>Clipping stays free. It will never sit behind a paywall.</span></li>
       </ul>
@@ -558,6 +562,10 @@
       <details>
         <summary>Is it really free?</summary>
         <p>Yes, and clipping stays free. If a paid tier ever arrives it will be for things like templates and automation — never for saving a page, because that's the whole point of the extension.</p>
+      </details>
+      <details>
+        <summary>Can I highlight parts of a page?</summary>
+        <p>Yes. Select text, right-click and choose <b>Highlight with Clipwise</b>, or press <code>Alt+Shift+H</code>. When you save, the highlights go to the top of the Notion page and stay yellow inside the article. Saved the page already? Highlight more and add them to the page you have. It's free, like the rest.</p>
       </details>
       <details>
         <summary>Why do I need a Notion integration secret?</summary>
