@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How to Save Web Highlights to Notion (Free, 2026)</title>
+<meta name="description" content="Highlight sentences on any web page and save them to Notion with the article. Three ways to do it, including a free one that needs no account.">
+<link rel="canonical" href="https://clipwise-app.github.io/save-highlights-to-notion.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can the official Notion Web Clipper save highlights?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The official clipper saves the page, but it has no highlighting. You need a different extension or a read-later app for that."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I highlight text and save it to Notion for free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With Clipwise: select text, right-click and choose Highlight with Clipwise (or press Alt+Shift+H), then save the page. The highlights go to the top of the Notion page as quotes. It is free and needs no account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do my highlights disappear if I close the tab?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not with Clipwise. Highlights are stored on your own computer until you save the page, and they come back when you open the page and click the Clipwise icon."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add highlights to a page I already saved to Notion?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Clipwise recognises pages that are already in your database. Highlight more on the article, open Clipwise, and add the new highlights to the existing Notion page."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --paper: #f6f4ef; --card: #fffefb; --ink: #15140f; --ink-soft: #57544a;
+    --ink-faint: #8b8778; --line: #e2ddd1; --line-soft: #ece8dd;
+    --blue: #2a78d6; --blue-ink: #1b5aa6; --blue-wash: #e8f0fb;
+    --amber: #b57905; --amber-wash: #fbf1dc; --green: #0a7d20;
+    --shadow: 0 1px 2px rgba(21,20,15,.05), 0 12px 32px -18px rgba(21,20,15,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+      --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+      --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+      --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+    --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+    --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+    --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+  }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 740px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5.4vw, 2.9rem); line-height: 1.07; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.02rem; }
+  p { margin: 0; }
+  a { color: var(--blue-ink); }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .86em; background: var(--line-soft); border-radius: 4px; padding: 1px 6px; color: var(--ink); }
+  .eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .top { display: flex; align-items: center; gap: 12px; padding-block: 22px; }
+  .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+  .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .top .spacer { flex: 1; }
+  .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
+  .top a.textlink:hover { color: var(--ink); }
+
+  .intro { display: flex; flex-direction: column; gap: 16px; padding-block: 12px 26px; }
+  .intro .lede { font-family: Newsreader, Georgia, serif; font-size: 1.2rem; color: var(--ink-soft); }
+
+  .quick { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .quick h2 { font-size: 1rem; }
+  .quick ol { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 4px; }
+  .quick a { text-decoration: none; }
+  .quick a:hover { text-decoration: underline; }
+
+  .fix { border-top: 1px solid var(--line-soft); padding-block: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .fix .head { display: flex; gap: 12px; align-items: baseline; }
+  .fix .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--blue); border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; flex: none; }
+  .fix p, .fix li { color: var(--ink-soft); }
+  .fix ol, .fix ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .symptom { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .76rem; color: var(--ink-faint); }
+  .note { border-left: 3px solid var(--amber); background: var(--amber-wash); border-radius: 0 8px 8px 0; padding: 12px 14px; font-size: .94rem; color: var(--ink-soft); }
+  .note b { color: var(--ink); }
+
+  .alt { margin-block: 12px 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .alt .lede { font-family: Newsreader, Georgia, serif; font-size: 1.1rem; color: var(--ink-soft); }
+  .tbl { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 440px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  td:first-child { color: var(--ink); font-weight: 500; }
+  td { color: var(--ink-soft); }
+  .yes { color: var(--green); font-weight: 500; }
+  .fair { font-size: .88rem; color: var(--ink-faint); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px; font: 500 .96rem/1 "Schibsted Grotesk", system-ui, sans-serif; text-decoration: none; background: var(--blue); color: #fff; box-shadow: var(--shadow); transition: background .2s ease, transform .18s ease; }
+  :root[data-theme="dark"] .btn { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { color: #0f1420; } }
+  .btn:hover { background: var(--blue-ink); transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .row .btn.ghost { color: var(--ink) !important; }
+
+  .faq { border-top: 1px solid var(--line-soft); padding-block: 28px; }
+  .faq details { border-bottom: 1px solid var(--line-soft); padding-block: 13px; }
+  .faq summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; }
+  .faq details[open] summary::after { content: "–"; color: var(--blue); }
+  .faq p { margin-top: 10px; color: var(--ink-soft); font-size: .95rem; }
+
+  footer { border-top: 1px solid var(--line-soft); padding-block: 22px 40px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .86rem; color: var(--ink-faint); }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer .spacer { flex: 1; }
+  .steps { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; }
+  .kbd { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .8em; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; background: var(--card); color: var(--ink); }
+  mark.hl { background: #fde68a; color: #15140f; border-radius: 2px; padding: 0 2px; }
+  .shot { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+  .shot img { display: block; width: 100%; height: auto; }
+  .related { border-top: 1px solid var(--line-soft); padding-block: 22px; display: flex; flex-direction: column; gap: 8px; }
+  .related a { text-decoration: none; }
+  .related a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
+    <span class="spacer"></span>
+    <a class="textlink" href="./">Home</a>
+    <a class="textlink" href="setup.html">Setup guide</a>
+  </div>
+
+  <div class="intro">
+    <span class="eyebrow">How-to · updated September 2026</span>
+    <h1>How to save highlights from web pages to Notion</h1>
+    <p class="lede">You read an article, three sentences matter, and a week later you can't find them. The fix is to highlight while you read and have those highlights land in Notion with the page. Here are three ways to do that, from free to paid.</p>
+  </div>
+
+  <div class="fix">
+    <div class="head"><span class="n">1</span><h2>With Clipwise (free, no account)</h2></div>
+    <p class="symptom">best for: saving the article and your highlights into a Notion database in one go</p>
+    <ol class="steps">
+      <li>Install Clipwise and connect your Notion database. The <a href="setup.html">setup guide</a> takes about two minutes.</li>
+      <li>On any article, select a sentence, right-click and choose <b>Highlight with Clipwise</b>. Or press <span class="kbd">Alt</span> <span class="kbd">Shift</span> <span class="kbd">H</span>. The sentence turns <mark class="hl">yellow</mark>.</li>
+      <li>Keep reading and highlight as much as you like. Closed the tab? Your highlights are kept on your computer until you save.</li>
+      <li>Click the Clipwise icon and <b>Save to Notion</b>.</li>
+    </ol>
+    <p>In Notion, the page starts with a <b>Highlights</b> heading and each highlight as a quote, followed by the full article, where the same sentences are still yellow. If your database has a text property with "Highlights" in its name, Clipwise fills that too, so you can see them in your table view.</p>
+    <div class="shot"><img src="shots/highlights.png" alt="The Clipwise popup listing three highlights from an article, next to the saved Notion page with the highlights at the top" loading="lazy"></div>
+    <p>Already saved the page earlier? Highlight more, open Clipwise, and add the new highlights to the page you have instead of saving it twice.</p>
+    <div class="row">
+      <a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add Clipwise to Chrome — free</a>
+      <a class="btn ghost" href="setup.html">See the setup guide</a>
+    </div>
+  </div>
+
+  <div class="fix">
+    <div class="head"><span class="n">2</span><h2>By hand, with quote blocks</h2></div>
+    <p class="symptom">best for: the odd highlight, no extension at all</p>
+    <ol class="steps">
+      <li>Select the sentence on the page and copy it.</li>
+      <li>In your Notion page, type <code>/quote</code> and paste it in.</li>
+      <li>Add the link to the article underneath, so you can find the context later.</li>
+    </ol>
+    <p>It works, but it's slow, and after a few articles most people stop doing it. You also lose the article itself unless you save it separately.</p>
+  </div>
+
+  <div class="fix">
+    <div class="head"><span class="n">3</span><h2>With a read-later app that exports to Notion</h2></div>
+    <p class="symptom">best for: heavy readers who want a separate reading app</p>
+    <p>Apps like Readwise Reader are built around highlighting and can send your highlights to Notion. They're excellent, but they're paid subscriptions, and Notion becomes a place your highlights are copied to rather than where you save and read. If your reading already happens in Notion, that's an extra app in between.</p>
+  </div>
+
+  <div class="faq">
+    <h2 style="margin-bottom:12px">Quick answers</h2>
+    <details>
+      <summary>Can the official Notion Web Clipper save highlights?</summary>
+      <p>No. The official clipper saves the page, but it has no highlighting. You need a different extension or a read-later app for that.</p>
+    </details>
+    <details>
+      <summary>How do I highlight text and save it to Notion for free?</summary>
+      <p>With Clipwise: select text, right-click and choose Highlight with Clipwise (or press Alt+Shift+H), then save the page. The highlights go to the top of the Notion page as quotes. It is free and needs no account.</p>
+    </details>
+    <details>
+      <summary>Do my highlights disappear if I close the tab?</summary>
+      <p>Not with Clipwise. Highlights are stored on your own computer until you save the page, and they come back when you open the page and click the Clipwise icon.</p>
+    </details>
+    <details>
+      <summary>Can I add highlights to a page I already saved to Notion?</summary>
+      <p>Yes. Clipwise recognises pages that are already in your database. Highlight more on the article, open Clipwise, and add the new highlights to the existing Notion page.</p>
+    </details>
+  </div>
+
+  <div class="related">
+    <span class="eyebrow">Related</span>
+    <a href="notion-web-clipper-alternative.html">Notion Web Clipper alternatives, compared →</a>
+    <a href="save-to-notion-without-account.html">Save articles to Notion without an account →</a>
+    <a href="notion-web-clipper-not-working.html">Notion Web Clipper not working? 7 fixes →</a>
+  </div>
+
+  <footer>
+    <span>Clipwise — made by Roan in the Netherlands</span>
+    <span class="spacer"></span>
+    <a href="./">Home</a>
+    <a href="setup.html">Setup guide</a>
+    <a href="mailto:roansp27@gmail.com?subject=Clipwise">Contact</a>
+    <span>Not affiliated with Notion Labs, Inc.</span>
+  </footer>
+</div>
+</body>
+</html>
