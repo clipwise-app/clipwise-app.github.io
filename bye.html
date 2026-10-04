@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clipwise was removed</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #f6f4ef; --card: #fffefb; --ink: #15140f; --ink-soft: #57544a;
+    --ink-faint: #8b8778; --line: #e2ddd1; --line-soft: #ece8dd;
+    --blue: #2a78d6; --blue-ink: #1b5aa6; --blue-wash: #e8f0fb;
+    --amber: #b57905; --amber-wash: #fbf1dc; --green: #0a7d20;
+    --shadow: 0 1px 2px rgba(21,20,15,.05), 0 12px 32px -18px rgba(21,20,15,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+      --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+      --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+      --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+    --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+    --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+    --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+  }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 740px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5.4vw, 2.9rem); line-height: 1.07; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.02rem; }
+  p { margin: 0; }
+  a { color: var(--blue-ink); }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .86em; background: var(--line-soft); border-radius: 4px; padding: 1px 6px; color: var(--ink); }
+  .eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .top { display: flex; align-items: center; gap: 12px; padding-block: 22px; }
+  .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+  .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .top .spacer { flex: 1; }
+  .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
+  .top a.textlink:hover { color: var(--ink); }
+
+  .intro { display: flex; flex-direction: column; gap: 16px; padding-block: 12px 26px; }
+  .intro .lede { font-family: Newsreader, Georgia, serif; font-size: 1.2rem; color: var(--ink-soft); }
+
+  .quick { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .quick h2 { font-size: 1rem; }
+  .quick ol { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 4px; }
+  .quick a { text-decoration: none; }
+  .quick a:hover { text-decoration: underline; }
+
+  .fix { border-top: 1px solid var(--line-soft); padding-block: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .fix .head { display: flex; gap: 12px; align-items: baseline; }
+  .fix .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--blue); border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; flex: none; }
+  .fix p, .fix li { color: var(--ink-soft); }
+  .fix ol, .fix ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .symptom { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .76rem; color: var(--ink-faint); }
+  .note { border-left: 3px solid var(--amber); background: var(--amber-wash); border-radius: 0 8px 8px 0; padding: 12px 14px; font-size: .94rem; color: var(--ink-soft); }
+  .note b { color: var(--ink); }
+
+  .alt { margin-block: 12px 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .alt .lede { font-family: Newsreader, Georgia, serif; font-size: 1.1rem; color: var(--ink-soft); }
+  .tbl { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 440px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  td:first-child { color: var(--ink); font-weight: 500; }
+  td { color: var(--ink-soft); }
+  .yes { color: var(--green); font-weight: 500; }
+  .fair { font-size: .88rem; color: var(--ink-faint); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px; font: 500 .96rem/1 "Schibsted Grotesk", system-ui, sans-serif; text-decoration: none; background: var(--blue); color: #fff; box-shadow: var(--shadow); transition: background .2s ease, transform .18s ease; }
+  :root[data-theme="dark"] .btn { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { color: #0f1420; } }
+  .btn:hover { background: var(--blue-ink); transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .row .btn.ghost { color: var(--ink) !important; }
+
+  .faq { border-top: 1px solid var(--line-soft); padding-block: 28px; }
+  .faq details { border-bottom: 1px solid var(--line-soft); padding-block: 13px; }
+  .faq summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; }
+  .faq details[open] summary::after { content: "–"; color: var(--blue); }
+  .faq p { margin-top: 10px; color: var(--ink-soft); font-size: .95rem; }
+
+  footer { border-top: 1px solid var(--line-soft); padding-block: 22px 40px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .86rem; color: var(--ink-faint); }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer .spacer { flex: 1; }
+
+  .keuzes { display: flex; flex-direction: column; gap: 10px; margin-block: 8px 4px; }
+  .keuze { text-align: left; font: 500 1rem/1.3 "Schibsted Grotesk", system-ui, sans-serif; color: var(--ink);
+           background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; cursor: pointer;
+           transition: border-color .15s ease, background .15s ease; }
+  .keuze:hover { border-color: var(--blue); }
+  .keuze[aria-pressed="true"] { border-color: var(--blue); background: var(--blue-wash); }
+  .vervolg { border: 1px solid var(--line); border-radius: 12px; background: var(--card); box-shadow: var(--shadow);
+             padding: 18px; display: flex; flex-direction: column; gap: 12px; margin-top: 6px; }
+  .vervolg p { color: var(--ink-soft); }
+  .bedankt { font-family: Newsreader, Georgia, serif; font-size: 1.08rem; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<!-- Deze pagina opent als iemand Clipwise verwijdert (chrome.runtime.setUninstallURL).
+     Er gaat niets mee in het adres, er draait geen analytics en er wordt niets opgeslagen:
+     een antwoord komt alleen binnen als iemand zelf de voorgevulde mail verstuurt. -->
+<div class="wrap">
+  <div class="top">
+    <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
+  </div>
+
+  <div class="intro">
+    <span class="eyebrow">Clipwise was removed</span>
+    <h1>Sorry to see you go</h1>
+    <p class="lede">I'm Roan, and I build Clipwise on my own. One quick question, because it's the most useful thing I can hear: why did you remove it?</p>
+  </div>
+
+  <div class="keuzes" role="group" aria-label="Why did you remove Clipwise?">
+    <button type="button" class="keuze" data-k="setup">I couldn't get it connected to Notion</button>
+    <button type="button" class="keuze" data-k="saving">It didn't save pages the way I wanted</button>
+    <button type="button" class="keuze" data-k="trying">I was just trying it out</button>
+    <button type="button" class="keuze" data-k="other-clipper">I'm using a different clipper</button>
+    <button type="button" class="keuze" data-k="else">Something else</button>
+  </div>
+
+  <div class="vervolg" id="vervolg" hidden>
+    <div id="hulp" hidden>
+      <h2 style="margin-bottom:8px">That step trips up most people</h2>
+      <p>Clipwise only sees databases you share with it. In Notion, open your database, click <code>···</code> at the top right, choose <b>Connections</b> and add your integration. It has to be a database (a table, board or list), not an ordinary page.</p>
+      <div class="row" style="margin-top:12px">
+        <a class="btn" href="setup.html#s4">See it step by step</a>
+        <a class="btn ghost" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Install Clipwise again</a>
+      </div>
+    </div>
+    <p id="vraag"></p>
+    <div class="row">
+      <a class="btn" id="mail" href="mailto:roansp27@gmail.com">Send it to me</a>
+    </div>
+    <p class="fair">This opens your email with your answer filled in, so you can add or remove anything before sending. Or write to <a href="mailto:roansp27@gmail.com">roansp27@gmail.com</a> yourself.</p>
+  </div>
+
+  <p class="bedankt" style="margin-top:26px">Either way: thanks for giving it a try.</p>
+
+  <footer>
+    <span>Clipwise — made by Roan in the Netherlands</span>
+    <span class="spacer"></span>
+    <a href="./">Home</a>
+    <a href="setup.html">Setup guide</a>
+    <span>Not affiliated with Notion Labs, Inc.</span>
+  </footer>
+</div>
+
+<script>
+  var VRAGEN = {
+    'setup': ['I couldn\'t get Clipwise connected to Notion.', 'Where did you get stuck? Even one line helps me fix it for the next person.'],
+    'saving': ['Clipwise didn\'t save pages the way I wanted.', 'Which site, or what was missing? That\'s exactly the kind of thing I fix.'],
+    'trying': ['I was just trying it out.', 'Fair enough. If anything would have made you keep it, I\'d love to know.'],
+    'other-clipper': ['I\'m using a different clipper.', 'Which one, and what does it do better? I won\'t argue, I just want to learn.'],
+    'else': ['Something else.', 'What was it? Anything you write goes straight to me.']
+  };
+  var knoppen = document.querySelectorAll('.keuze');
+  for (var i = 0; i < knoppen.length; i++) {
+    knoppen[i].addEventListener('click', function () {
+      for (var j = 0; j < knoppen.length; j++) knoppen[j].setAttribute('aria-pressed', 'false');
+      this.setAttribute('aria-pressed', 'true');
+      var v = VRAGEN[this.getAttribute('data-k')];
+      document.getElementById('hulp').hidden = this.getAttribute('data-k') !== 'setup';
+      document.getElementById('vraag').textContent = v[1];
+      document.getElementById('mail').href = 'mailto:roansp27@gmail.com?subject=' +
+        encodeURIComponent('Why I removed Clipwise') + '&body=' + encodeURIComponent(v[0] + '\n\n');
+      var vv = document.getElementById('vervolg');
+      vv.hidden = false;
+      vv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+</script>
+</body>
+</html>
