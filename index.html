@@ -85,6 +85,7 @@
   .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.02em; font-size: 1.05rem; }
   .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
   .top .spacer { flex: 1; }
+  @media (max-width: 520px) { .top .wide-only { display: none; } }
   .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; position: relative; }
   .top a.textlink::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
@@ -121,7 +122,7 @@
     display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
     gap: 30px; align-items: center; padding-block: 18px 40px;
   }
-  .hero-copy { display: flex; flex-direction: column; gap: 22px; }
+  .hero-copy { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
   .hero-copy > * { animation: rise .75s cubic-bezier(.2,.8,.2,1) both; }
   .hero-copy > *:nth-child(2) { animation-delay: .07s; }
   .hero-copy > *:nth-child(3) { animation-delay: .14s; }
@@ -335,7 +336,7 @@
   .faq .answer { overflow: hidden; max-height: 0; transition: max-height .4s cubic-bezier(.2,.8,.2,1); }
 
   @media (max-width: 860px) {
-    .hero { grid-template-columns: 1fr; gap: 26px; }
+    .hero { grid-template-columns: minmax(0, 1fr); gap: 26px; }
     .stage { min-height: 300px; }
     #clip3d { height: 300px; }
     .privacy { grid-template-columns: 1fr; }
@@ -361,9 +362,11 @@
   <div class="top">
     <span class="mark"><img src="shots/icon.png" alt="">Clipwise</span>
     <span class="spacer"></span>
-    <a class="textlink" href="#try">Try it</a>
-    <a class="textlink" href="setup.html">Setup</a>
-    <a class="textlink" href="#privacy">Privacy</a>
+    <a class="textlink wide-only" href="#try">Try it</a>
+    <a class="textlink wide-only" href="setup.html">Setup</a>
+    <a class="textlink" href="templates.html" style="color:var(--blue-ink);font-weight:500">Free template</a>
+    <a class="textlink" href="pricing.html">Plans</a>
+    <a class="textlink wide-only" href="#privacy">Privacy</a>
   </div>
 
   <div class="hero">
