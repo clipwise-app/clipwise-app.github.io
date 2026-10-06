@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Free Notion Reading List Template | Clipwise</title>
+<meta name="description" content="A free Notion reading list template that fills itself in: save an article with Clipwise and the title, source, author, date and your highlights land in the right columns.">
+<link rel="canonical" href="https://clipwise-app.github.io/templates.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #f6f4ef; --card: #fffefb; --ink: #15140f; --ink-soft: #57544a;
+    --ink-faint: #8b8778; --line: #e2ddd1; --line-soft: #ece8dd;
+    --blue: #2a78d6; --blue-ink: #1b5aa6; --blue-wash: #e8f0fb;
+    --amber: #b57905; --amber-wash: #fbf1dc; --green: #0a7d20;
+    --shadow: 0 1px 2px rgba(21,20,15,.05), 0 12px 32px -18px rgba(21,20,15,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+      --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+      --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+      --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+    --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+    --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+    --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+  }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 740px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5.4vw, 2.9rem); line-height: 1.07; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.02rem; }
+  p { margin: 0; }
+  a { color: var(--blue-ink); }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .86em; background: var(--line-soft); border-radius: 4px; padding: 1px 6px; color: var(--ink); }
+  .eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .top { display: flex; align-items: center; gap: 12px; padding-block: 22px; }
+  .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+  .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .top .spacer { flex: 1; }
+  .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
+  .top a.textlink:hover { color: var(--ink); }
+
+  .intro { display: flex; flex-direction: column; gap: 16px; padding-block: 12px 26px; }
+  .intro .lede { font-family: Newsreader, Georgia, serif; font-size: 1.2rem; color: var(--ink-soft); }
+
+  .quick { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .quick h2 { font-size: 1rem; }
+  .quick ol { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 4px; }
+  .quick a { text-decoration: none; }
+  .quick a:hover { text-decoration: underline; }
+
+  .fix { border-top: 1px solid var(--line-soft); padding-block: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .fix .head { display: flex; gap: 12px; align-items: baseline; }
+  .fix .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--blue); border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; flex: none; }
+  .fix p, .fix li { color: var(--ink-soft); }
+  .fix ol, .fix ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .symptom { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .76rem; color: var(--ink-faint); }
+  .note { border-left: 3px solid var(--amber); background: var(--amber-wash); border-radius: 0 8px 8px 0; padding: 12px 14px; font-size: .94rem; color: var(--ink-soft); }
+  .note b { color: var(--ink); }
+
+  .alt { margin-block: 12px 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .alt .lede { font-family: Newsreader, Georgia, serif; font-size: 1.1rem; color: var(--ink-soft); }
+  .tbl { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 440px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  td:first-child { color: var(--ink); font-weight: 500; }
+  td { color: var(--ink-soft); }
+  .yes { color: var(--green); font-weight: 500; }
+  .fair { font-size: .88rem; color: var(--ink-faint); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px; font: 500 .96rem/1 "Schibsted Grotesk", system-ui, sans-serif; text-decoration: none; background: var(--blue); color: #fff; box-shadow: var(--shadow); transition: background .2s ease, transform .18s ease; }
+  :root[data-theme="dark"] .btn { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { color: #0f1420; } }
+  .btn:hover { background: var(--blue-ink); transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .row .btn.ghost { color: var(--ink) !important; }
+
+  .faq { border-top: 1px solid var(--line-soft); padding-block: 28px; }
+  .faq details { border-bottom: 1px solid var(--line-soft); padding-block: 13px; }
+  .faq summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; }
+  .faq details[open] summary::after { content: "–"; color: var(--blue); }
+  .faq p { margin-top: 10px; color: var(--ink-soft); font-size: .95rem; }
+
+  footer { border-top: 1px solid var(--line-soft); padding-block: 22px 40px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .86rem; color: var(--ink-faint); }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer .spacer { flex: 1; }
+
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; margin-top: 8px; }
+  .plan { border: 1px solid var(--line); border-radius: 14px; background: var(--card); padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .plan.now { box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--blue) 45%, var(--line)); }
+  .plan .tag { align-self: flex-start; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+               border-radius: 999px; padding: 3px 10px; border: 1px solid var(--line); color: var(--ink-faint); }
+  .plan.now .tag { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, transparent); }
+  .plan .price { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; }
+  .plan ul { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; }
+  .tpl { display: grid; grid-template-columns: minmax(0,1fr); gap: 14px; }
+  .mock { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--paper); font-size: .84rem; }
+  .mock .head { padding: 10px 12px; font-weight: 700; border-bottom: 1px solid var(--line-soft); }
+  .mock .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px; }
+  .mock .col b { display: block; font-size: .72rem; font-family: "IBM Plex Mono", monospace; color: var(--ink-faint); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; }
+  .mock .card { background: var(--card); border: 1px solid var(--line); border-radius: 7px; padding: 8px 9px; margin-bottom: 8px; color: var(--ink); }
+  .mock .card small { display: block; color: var(--ink-faint); font-size: .72rem; margin-top: 3px; }
+  .mock mark { background: #fde68a; color: #15140f; border-radius: 2px; padding: 0 2px; font-size: .74rem; }
+  .pending { opacity: .6; pointer-events: none; }
+  .plan .btn.ghost { color: var(--ink) !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
+    <span class="spacer"></span>
+    <a class="textlink" href="./">Home</a>
+    <a class="textlink" href="setup.html">Setup guide</a>
+  </div>
+
+  <div class="intro">
+    <span class="eyebrow">Templates &amp; plans</span>
+    <h1>A Notion reading list that fills itself in</h1>
+    <p class="lede">Clipwise saves articles into your Notion databases. This template is built for it: every column matches something Clipwise fills in, so each article you save lands complete. Free, like the extension.</p>
+  </div>
+
+  <div class="alt" id="reading-list">
+    <span class="eyebrow">Free template</span>
+    <h2>Reading list</h2>
+    <div class="mock" aria-hidden="true">
+      <div class="head">📚 Reading list</div>
+      <div class="cols">
+        <div class="col"><b>To read</b>
+          <div class="card">How to build a reading habit<small>The Reading Room · reading</small></div>
+          <div class="card">The best code is no code<small>Coding Horror · code</small></div>
+        </div>
+        <div class="col"><b>Reading</b>
+          <div class="card">Why we forget what we read<small>The Reading Room</small><small><mark>“Write one line about it”</mark></small></div>
+        </div>
+        <div class="col"><b>Done</b>
+          <div class="card">Notes on focus<small>Example Magazine</small></div>
+        </div>
+      </div>
+    </div>
+    <ul class="steps" style="padding-left:20px;margin:0;color:var(--ink-soft);display:flex;flex-direction:column;gap:6px">
+      <li><b>Filled in for you:</b> URL, source, author, published date, date added, summary and your highlights.</li>
+      <li><b>Three views:</b> a board by status (To read, Reading, Done), everything in one table, and only the articles you highlighted.</li>
+      <li><b>Yours:</b> it's a normal Notion database, so change anything you like.</li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="https://nimble-knee-ef0.notion.site/Reading-list-3f153e2122c88092a342ce0a3312c476">Duplicate it in Notion — free</a>
+      <a class="btn ghost" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Get Clipwise — free</a>
+    </div>
+    <p class="fair">Keep the column names as they are, and Clipwise fills them in without any setup.</p>
+  </div>
+
+  <div class="fix" id="plans">
+    <span class="eyebrow">Plans</span>
+    <h2>Free now. Pro later, maybe.</h2>
+    <div class="plans">
+      <div class="plan now">
+        <span class="tag">Available now</span>
+        <div class="price">Free</div>
+        <ul>
+          <li>Save whole articles to any Notion database</li>
+          <li>Properties filled in before you save</li>
+          <li>Highlights, at the top of the page</li>
+          <li>Duplicate check and keyboard shortcut</li>
+          <li>The Reading list template</li>
+          <li>No account, no tracking</li>
+        </ul>
+        <a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add to Chrome</a>
+      </div>
+      <div class="plan">
+        <span class="tag">Planned — not available yet</span>
+        <div class="price">Pro</div>
+        <p style="color:var(--ink-soft)">Not built yet. The idea is more templates and extras for people who clip a lot. Ideas so far:</p>
+        <ul>
+          <li>More templates: research library, recipe box, course notes</li>
+          <li>Whatever people ask for most</li>
+        </ul>
+        <a class="btn ghost" href="mailto:roansp27@gmail.com?subject=What%20I%20would%20want%20in%20Clipwise%20Pro">Tell me what Pro should have</a>
+      </div>
+    </div>
+    <p class="fair" style="margin-top:14px">Saving pages to Notion stays free. If a feature ever moves to Pro, the people already using it keep it.</p>
+  </div>
+
+  <div class="faq">
+    <h2 style="margin-bottom:12px">Quick answers</h2>
+    <details>
+      <summary>Do I need Clipwise to use the template?</summary>
+      <p>No, it's a normal Notion database and you can fill it in by hand. With Clipwise it fills itself in when you save an article.</p>
+    </details>
+    <details>
+      <summary>Is the template really free?</summary>
+      <p>Yes. Duplicate it into your own Notion and it's yours. No email, no sign-up.</p>
+    </details>
+    <details>
+      <summary>When is Pro coming?</summary>
+      <p>There's no date. Clipwise is made by one person, and the free version comes first. If you want to hear when it's ready, or tell me what it should have, send me an email.</p>
+    </details>
+  </div>
+
+  <footer>
+    <span>Clipwise — made by Roan in the Netherlands</span>
+    <span class="spacer"></span>
+    <a href="./">Home</a>
+    <a href="setup.html">Setup guide</a>
+    <a href="mailto:roansp27@gmail.com?subject=Clipwise">Contact</a>
+    <span>Not affiliated with Notion Labs, Inc.</span>
+  </footer>
+</div>
+</body>
+</html>
