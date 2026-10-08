@@ -158,6 +158,51 @@
   .cycle button { flex: 1; border: 0; background: none; font: inherit; font-size: .88rem; color: var(--ink-soft); padding: 6px 8px; border-radius: 7px; cursor: pointer; }
   .cycle button[aria-selected="true"] { background: var(--card); color: var(--ink); font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
   [hidden] { display: none !important; }
+  .cycle .save { font-size: .72rem; font-weight: 600; color: var(--green); margin-left: 2px; }
+  /* De Pro-kaart mag opvallen: zachte gloed in de merkkleur. */
+  .plan.pro { position: relative; background:
+      radial-gradient(120% 60% at 100% 0%, color-mix(in srgb, var(--blue) 12%, transparent), transparent 60%), var(--card); }
+  .plan.pro::before { content: ""; position: absolute; inset: -1px; border-radius: 15px; padding: 1px; pointer-events: none;
+      background: linear-gradient(140deg, color-mix(in srgb, var(--blue) 80%, transparent), transparent 45%, color-mix(in srgb, var(--blue) 35%, transparent));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+
+  .closeup { display: flex; flex-direction: column; gap: 56px; padding-block: 56px 8px; }
+  .closeup h2 { font-size: clamp(1.4rem, 3.4vw, 1.8rem); line-height: 1.2; }
+  .showcase { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+  .showtext { display: flex; flex-direction: column; gap: 14px; }
+  .showtext > p { color: var(--ink-soft); }
+  .showtext .feats { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .showtext .feats svg { color: var(--blue); }
+  .shot { margin: 0; justify-self: center; position: relative; }
+  .shot::before { content: ""; position: absolute; inset: 8% -10% -6%; z-index: 0; border-radius: 40px; filter: blur(40px);
+      background: color-mix(in srgb, var(--blue) 30%, transparent); opacity: .55; }
+  .shot img { position: relative; z-index: 1; display: block; width: 100%; max-width: 330px; height: auto; border-radius: 14px;
+      border: 1px solid var(--line); box-shadow: 0 30px 60px -30px rgba(0,0,0,.6), 0 2px 6px rgba(0,0,0,.12); }
+  @media (max-width: 640px) { .showcase { grid-template-columns: 1fr; } }
+
+  .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; }
+  .benefit { border: 1px solid var(--line); border-radius: 14px; background: var(--card); padding: 20px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .2s ease, transform .2s ease; }
+  .benefit:hover { border-color: color-mix(in srgb, var(--blue) 45%, var(--line)); transform: translateY(-2px); }
+  .benefit h3 { font-size: 1rem; }
+  .benefit p { color: var(--ink-soft); font-size: .93rem; }
+  .bicon { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; color: var(--blue);
+      background: var(--blue-wash); border: 1px solid color-mix(in srgb, var(--blue) 25%, transparent); }
+  .bicon svg { width: 19px; height: 19px; }
+
+  .compare { display: flex; flex-direction: column; gap: 14px; }
+  .compare table { min-width: 0; }
+  .compare th:nth-child(n+2), .compare td:nth-child(n+2) { text-align: center; width: 70px; }
+  .compare th:last-child { color: var(--blue); }
+  .compare td:first-child { font-weight: 400; color: var(--ink); }
+  .compare .ja { width: 17px; height: 17px; color: var(--green); vertical-align: middle; }
+  .compare td:last-child .ja { color: var(--blue); }
+  .compare .nee { color: var(--ink-faint); }
+
+  .band { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 26px 28px; border-radius: 16px;
+      border: 1px solid color-mix(in srgb, var(--blue) 40%, var(--line));
+      background: radial-gradient(100% 140% at 0% 0%, color-mix(in srgb, var(--blue) 16%, transparent), transparent 60%), var(--card); }
+  .band p { color: var(--ink-soft); margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -199,7 +244,7 @@
       <span class="tag" data-when="live" hidden>Pro</span>
       <div class="cycle" role="tablist" aria-label="Billing">
         <button type="button" role="tab" data-cyclus="month" aria-selected="false">Monthly</button>
-        <button type="button" role="tab" data-cyclus="year" aria-selected="true">Yearly</button>
+        <button type="button" role="tab" data-cyclus="year" aria-selected="true">Yearly <span class="save">−33%</span></button>
         <button type="button" role="tab" data-cyclus="life" aria-selected="false">Lifetime</button>
       </div>
       <div class="price"><span id="prijs">€39.99</span> <small id="per">/ year</small></div>
@@ -222,6 +267,94 @@
     </div>
   </div>
   <p class="fair" style="margin-top:14px">Saving pages to Notion stays free and never needs an account. If a feature ever moves to Pro, the people already using it keep it.</p>
+
+
+  <section class="closeup">
+    <div class="showcase">
+      <div class="showtext">
+        <span class="eyebrow">Pro, up close</span>
+        <h2>One click, and it lands in the right place — with everything you wanted to keep.</h2>
+        <p>On a coding blog, Clipwise picks your “Code” setup by itself. Turn on a screenshot and a summary, and save. That’s it.</p>
+        <ul class="feats">
+          <li><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg><span><b>Picks the right setup</b> <small>by website, with your tags and status</small></span></li>
+          <li><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg><span><b>Adds a screenshot</b> <small>the whole view, or just the part you select</small></span></li>
+          <li><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg><span><b>Writes the key points</b> <small>with AI that runs on your own computer</small></span></li>
+        </ul>
+      </div>
+      <figure class="shot">
+        <picture>
+          <source srcset="shots/pro-popup-dark.png" media="(prefers-color-scheme: dark)">
+          <img src="shots/pro-popup-light.png" width="360" height="445" alt="The Clipwise Pro popup: the Code setup picked because you’re on codinghorror.com, with Screenshot and Summary turned on">
+        </picture>
+      </figure>
+    </div>
+
+    <div class="benefits">
+      <div class="benefit">
+        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg></span>
+        <h3>It knows where things go</h3>
+        <p>Make setups like “Recipes”, “Research” or “Work”. Add a website to one, and Clipwise picks it for you every time you’re there.</p>
+      </div>
+      <div class="benefit">
+        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></span>
+        <h3>Keep what the page looks like</h3>
+        <p>Save the whole view, or drag around just the chart or code you need. It goes into Notion as an image.</p>
+      </div>
+      <div class="benefit">
+        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg></span>
+        <h3>Color-code what you read</h3>
+        <p>Four highlight colors and a note on any highlight, all saved at the top of the page in Notion.</p>
+      </div>
+      <div class="benefit">
+        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <h3>Find anything you saved</h3>
+        <p>A searchable history of everything you clipped, with a link straight back to the page in Notion.</p>
+      </div>
+      <div class="benefit">
+        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="8" height="16" rx="2"/><rect x="13" y="4" width="8" height="16" rx="2"/></svg></span>
+        <h3>Work and personal, side by side</h3>
+        <p>Clip into more than one Notion workspace from the same popup. Each keeps its own secret.</p>
+      </div>
+      <div class="benefit">
+        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l1.8 4.9 4.9 1.8-4.9 1.8L12 16.9l-1.8-4.9-4.9-1.8 4.9-1.8z"/><path d="M19 15v4M17 17h4"/></svg></span>
+        <h3>Summaries that stay private</h3>
+        <p>Key points at the top of every page, written by Chrome’s built-in AI on your computer. Your pages aren’t sent anywhere.</p>
+      </div>
+    </div>
+
+    <div class="compare">
+      <h2>Free and Pro, side by side</h2>
+      <div class="tbl">
+        <table>
+          <thead><tr><th></th><th>Free</th><th>Pro</th></tr></thead>
+          <tbody>
+            <tr><td>Whole articles, properties filled in</td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Highlights</td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Selection only, YouTube videos</td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Retry when Notion is down</td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Reading list template</td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Setups and rules per website</td><td><span class="nee" aria-label="Not included">—</span></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Screenshots, whole view or an area</td><td><span class="nee" aria-label="Not included">—</span></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Highlight colors and notes</td><td><span class="nee" aria-label="Not included">—</span></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Searchable history</td><td><span class="nee" aria-label="Not included">—</span></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Several Notion workspaces</td><td><span class="nee" aria-label="Not included">—</span></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Your own title format</td><td><span class="nee" aria-label="Not included">—</span></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>AI summary and tag suggestions</td><td><span class="nee" aria-label="Not included">—</span></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+            <tr><td>Pro templates</td><td><span class="nee" aria-label="Not included">—</span></td><td><svg class="ja" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Included"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="band">
+      <div>
+        <h2>Clip like you mean it.</h2>
+        <p>From €3.33 a month, billed yearly. Or pay once for lifetime.</p>
+      </div>
+      <a class="btn" href="pricing.html#pro" data-checkout data-when="live" hidden>Get Pro</a>
+      <a class="btn" href="mailto:roansp27@gmail.com?subject=Tell%20me%20when%20Clipwise%20Pro%20is%20ready" data-when="soon">Tell me when it’s ready</a>
+    </div>
+  </section>
 
   <div class="faq">
     <h2 style="margin-bottom:12px">Quick answers</h2>
