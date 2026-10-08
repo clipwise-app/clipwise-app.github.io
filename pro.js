@@ -10,7 +10,7 @@
   'use strict';
   var PRO = {
     live: false,
-    checkout: 'https://getclipwise.lemonsqueezy.com/checkout/buy/1268a8b6-540a-44e4-8732-a0e89875336d',
+    checkout: 'https://getclipwise.lemonsqueezy.com/checkout/buy/7c5ecb51-87b9-425d-b62d-4dedc8afa87f',
     portal: 'https://getclipwise.lemonsqueezy.com/billing'
   };
   function klaar() {
