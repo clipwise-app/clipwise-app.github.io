@@ -7,7 +7,7 @@
 <link rel="apple-touch-icon" href="shots/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Plans | Clipwise</title>
-<meta name="description" content="Clipwise is free: whole articles, properties, highlights and the Reading list template. A Pro plan with more templates is planned.">
+<meta name="description" content="Clipwise is free: whole articles, properties, highlights and the Reading list template, with no account. Clipwise Pro adds setups, screenshots, colors, history and more.">
 <link rel="canonical" href="https://clipwise-app.github.io/pricing.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,6 +58,15 @@
   .top .spacer { flex: 1; }
   .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
   .top a.textlink:hover { color: var(--ink); }
+  @media (max-width: 520px) { .top .wide-only { display: none; } }
+  /* Log in + Get Pro, rechts in de kop van elke pagina */
+  .top a.navpro { font-size: .88rem; font-weight: 500; text-decoration: none; padding: 6px 13px; border-radius: 999px;
+                  background: var(--blue); color: #fff; white-space: nowrap; transition: background .2s ease; }
+  .top a.navpro:hover { background: var(--blue-ink); }
+  :root[data-theme="dark"] .top a.navpro { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .top a.navpro { color: #0f1420; } }
+  .top a.textlink, .top a.navpro { flex: none; }
+  @media (max-width: 400px) { .top { gap: 10px; } .top .mark { font-size: 0; gap: 0; } }
 
   .intro { display: flex; flex-direction: column; gap: 16px; padding-block: 12px 26px; }
   .intro .lede { font-family: Newsreader, Georgia, serif; font-size: 1.2rem; color: var(--ink-soft); }
@@ -134,7 +143,21 @@
                border-radius: 999px; padding: 3px 10px; border: 1px solid var(--line); color: var(--ink-faint); }
   .plan.now .tag { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, transparent); }
   .plan .price { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; }
-  .plan ul { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; }
+  .plan ul.feats { list-style: none; margin: 0; padding: 0; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px; font-size: .95rem; }
+  .feats li { display: flex; gap: 9px; align-items: flex-start; }
+  .feats svg { width: 16px; height: 16px; flex: none; margin-top: 4px; color: var(--green); }
+  .plan.pro .feats svg { color: var(--blue); }
+  .feats b { font-weight: 500; color: var(--ink); }
+  .feats small { display: block; font-size: .86rem; color: var(--ink-faint); }
+  .plan .btn { justify-content: center; margin-top: auto; }
+  .plan.pro { border-color: color-mix(in srgb, var(--blue) 55%, var(--line)); box-shadow: var(--shadow); }
+  .plan.pro .tag { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 45%, transparent); }
+  .plan.now { box-shadow: none; border-color: var(--line); }
+  .plan .price small { font-size: .95rem; font-weight: 400; color: var(--ink-faint); letter-spacing: 0; }
+  .cycle { display: flex; padding: 3px; gap: 3px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+  .cycle button { flex: 1; border: 0; background: none; font: inherit; font-size: .88rem; color: var(--ink-soft); padding: 6px 8px; border-radius: 7px; cursor: pointer; }
+  .cycle button[aria-selected="true"] { background: var(--card); color: var(--ink); font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -142,40 +165,60 @@
   <div class="top">
     <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
     <span class="spacer"></span>
-    <a class="textlink" href="./">Home</a>
+    <a class="textlink wide-only" href="./">Home</a>
     <a class="textlink" href="templates.html">Templates</a>
-    <a class="textlink" href="pricing.html">Plans</a>
+    <a class="textlink wide-only" href="pricing.html">Plans</a>
+    <a class="textlink wide-only" href="account.html" data-portal>Log in</a>
+    <a class="navpro" href="pricing.html#pro">Get Pro</a>
   </div>
 
   <div class="intro">
     <span class="eyebrow">Plans</span>
-    <h1>Free now. Pro later, maybe.</h1>
-    <p class="lede">Everything Clipwise does today is free and needs no account. A Pro plan with more templates and extras is planned, but not built yet.</p>
+    <h1>Clipping is free. Pro is for people who clip a lot.</h1>
+    <p class="lede">Everything you need to save pages to Notion is free, with no account. Pro adds the extras: setups, screenshots, colors, history and more.</p>
   </div>
 
   <div class="plans">
     <div class="plan now">
-      <span class="tag">Available now</span>
-      <div class="price">Free</div>
-      <ul>
-        <li>Save whole articles to any Notion database</li>
-        <li>Properties filled in before you save</li>
-        <li>Highlights, at the top of the page</li>
-        <li>Duplicate check and keyboard shortcut</li>
-        <li>The <a href="templates.html">Reading list template</a></li>
-        <li>No account, no tracking</li>
+      <span class="tag">Free forever</span>
+      <div class="price">€0</div>
+      <ul class="feats">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Whole articles to any Notion database</b> <small>properties filled in, duplicate check, shortcut</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Highlights</b> <small>in yellow, at the top of the page</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Save only the selection</b></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>YouTube videos</b> <small>playable, with the channel</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Nothing gets lost</b> <small>failed saves are retried</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>The <a href="templates.html">Reading list template</a></b></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>No account, no tracking</b></span></li>
       </ul>
-      <a class="btn" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add to Chrome</a>
+      <a class="btn ghost" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Add to Chrome — free</a>
     </div>
-    <div class="plan">
-      <span class="tag">Planned — not available yet</span>
-      <div class="price">Pro</div>
-      <p style="color:var(--ink-soft)">Not built yet. The idea: one place with your account, a gallery of templates made for Clipwise, and extras for people who clip a lot.</p>
-      <ul>
-        <li>More templates: research library, recipe box, course notes</li>
-        <li>Whatever people ask for most</li>
+
+    <div class="plan pro" id="pro">
+      <span class="tag" data-when="soon">Pro · coming soon</span>
+      <span class="tag" data-when="live" hidden>Pro</span>
+      <div class="cycle" role="tablist" aria-label="Billing">
+        <button type="button" role="tab" data-cyclus="month" aria-selected="false">Monthly</button>
+        <button type="button" role="tab" data-cyclus="year" aria-selected="true">Yearly</button>
+        <button type="button" role="tab" data-cyclus="life" aria-selected="false">Lifetime</button>
+      </div>
+      <div class="price"><span id="prijs">€39.99</span> <small id="per">/ year</small></div>
+      <p class="fair" id="prijsuitleg">That’s €3.33 a month — 4 months free compared to monthly.</p>
+      <ul class="feats">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Everything in Free</b></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Setups</b> <small>one click for “Recipes”, “Research”, “Work”</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Rules per website</b> <small>YouTube to Videos, GitHub to Code, by itself</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Screenshots</b> <small>the whole view or an area you pick</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Highlight colors and notes</b></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>History</b> <small>everything you saved, searchable</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Several Notion workspaces</b></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Your own title format</b></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>AI summary and tags</b> <small>with Chrome’s built-in AI, on your computer</small></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>Pro templates</b> <small><a href="templates.html#pro">see them</a></small></span></li>
       </ul>
-      <a class="btn ghost" href="mailto:roansp27@gmail.com?subject=What%20I%20would%20want%20in%20Clipwise%20Pro">Tell me what Pro should have</a>
+      <a class="btn" href="pricing.html#pro" data-checkout data-when="live" hidden>Get Pro</a>
+      <a class="btn" href="mailto:roansp27@gmail.com?subject=Tell%20me%20when%20Clipwise%20Pro%20is%20ready" data-when="soon">Tell me when it’s ready</a>
+      <p class="fair">Payments are handled by Lemon Squeezy, which also takes care of VAT. You get a license key by email.</p>
     </div>
   </div>
   <p class="fair" style="margin-top:14px">Saving pages to Notion stays free and never needs an account. If a feature ever moves to Pro, the people already using it keep it.</p>
@@ -183,12 +226,24 @@
   <div class="faq">
     <h2 style="margin-bottom:12px">Quick answers</h2>
     <details>
-      <summary>When is Pro coming?</summary>
-      <p>There's no date. Clipwise is made by one person, and the free version comes first. If you want to hear when it's ready, or tell me what it should have, send me an email.</p>
+      <summary>Do I need an account?</summary>
+      <p>Not for Free. For Pro you get a license key by email that you paste into Clipwise’s settings. Your invoices, plan and key are in your <a href="account.html">customer portal</a>, which you open with just your email address.</p>
     </details>
     <details>
-      <summary>Will I need an account?</summary>
-      <p>Only for Pro. Clipping stays account-free, and keeps working even if Pro is ever offline.</p>
+      <summary>Does Pro send my pages anywhere?</summary>
+      <p>No. Clipwise still talks only to Notion. The license key is checked with Lemon Squeezy now and then; your pages, highlights and Notion secret never go there.</p>
+    </details>
+    <details>
+      <summary>Can I cancel?</summary>
+      <p>Any time, in the <a href="account.html">customer portal</a>. Pro stays on until the end of the period you paid for, and everything free keeps working after that.</p>
+    </details>
+    <details>
+      <summary>What does lifetime mean?</summary>
+      <p>Pay once, and Pro is yours for as long as Clipwise exists, including new Pro features.</p>
+    </details>
+    <details>
+      <summary>Can I use it on more than one computer?</summary>
+      <p>Yes, one license works in up to 5 browsers.</p>
     </details>
   </div>
 
@@ -198,10 +253,32 @@
     <a href="./">Home</a>
     <a href="templates.html">Templates</a>
     <a href="pricing.html">Plans</a>
+    <a href="account.html">Account</a>
     <a href="setup.html">Setup guide</a>
     <a href="mailto:roansp27@gmail.com?subject=Clipwise">Contact</a>
     <span>Not affiliated with Notion Labs, Inc.</span>
   </footer>
 </div>
+<script src="pro.js"></script>
+<script>
+  // Maand, jaar of lifetime: alleen de prijs verandert; afrekenen kiest de klant bij Lemon Squeezy.
+  (function () {
+    var P = {
+      month: ['€4.99', '/ month', 'Cancel any time.'],
+      year: ['€39.99', '/ year', 'That’s €3.33 a month — 4 months free compared to monthly.'],
+      life: ['€89.99', 'once', 'Pay once, Pro for good.']
+    };
+    var knoppen = document.querySelectorAll('.cycle button');
+    knoppen.forEach(function (b) {
+      b.addEventListener('click', function () {
+        knoppen.forEach(function (k) { k.setAttribute('aria-selected', String(k === b)); });
+        var p = P[b.getAttribute('data-cyclus')];
+        document.getElementById('prijs').textContent = p[0];
+        document.getElementById('per').textContent = p[1];
+        document.getElementById('prijsuitleg').textContent = p[2];
+      });
+    });
+  })();
+</script>
 </body>
 </html>

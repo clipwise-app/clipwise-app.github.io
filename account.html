@@ -6,9 +6,9 @@
 <link rel="icon" href="shots/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="shots/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Free Notion Reading List Template | Clipwise</title>
-<meta name="description" content="A free Notion reading list template that fills itself in: save an article with Clipwise and the title, source, author, date and your highlights land in the right columns.">
-<link rel="canonical" href="https://clipwise-app.github.io/templates.html">
+<title>Your account | Clipwise</title>
+<meta name="description" content="Clipwise needs no account. Clipwise Pro customers manage their plan, invoices and license key in the customer portal.">
+<link rel="canonical" href="https://clipwise-app.github.io/account.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -58,13 +58,6 @@
   .top .spacer { flex: 1; }
   .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
   .top a.textlink:hover { color: var(--ink); }
-  [hidden] { display: none !important; }
-  .prohead { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .protag { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
-            color: var(--blue); border: 1px solid color-mix(in srgb, var(--blue) 45%, transparent); border-radius: 999px; padding: 3px 10px; }
-  .progrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; }
-  .procard { border: 1px solid var(--line); border-radius: 12px; background: var(--card); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
-  .procard span { color: var(--ink-soft); font-size: .94rem; }
   @media (max-width: 520px) { .top .wide-only { display: none; } }
   /* Log in + Get Pro, rechts in de kop van elke pagina */
   .top a.navpro { font-size: .88rem; font-weight: 500; text-decoration: none; padding: 6px 13px; border-radius: 999px;
@@ -150,7 +143,29 @@
                border-radius: 999px; padding: 3px 10px; border: 1px solid var(--line); color: var(--ink-faint); }
   .plan.now .tag { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, transparent); }
   .plan .price { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; }
-  .plan ul { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; }
+  .plan ul.feats { list-style: none; margin: 0; padding: 0; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px; font-size: .95rem; }
+  .feats li { display: flex; gap: 9px; align-items: flex-start; }
+  .feats svg { width: 16px; height: 16px; flex: none; margin-top: 4px; color: var(--green); }
+  .plan.pro .feats svg { color: var(--blue); }
+  .feats b { font-weight: 500; color: var(--ink); }
+  .feats small { display: block; font-size: .86rem; color: var(--ink-faint); }
+  .plan .btn { justify-content: center; margin-top: auto; }
+  .plan.pro { border-color: color-mix(in srgb, var(--blue) 55%, var(--line)); box-shadow: var(--shadow); }
+  .plan.pro .tag { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 45%, transparent); }
+  .plan.now { box-shadow: none; border-color: var(--line); }
+  .plan .price small { font-size: .95rem; font-weight: 400; color: var(--ink-faint); letter-spacing: 0; }
+  .cycle { display: flex; padding: 3px; gap: 3px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+  .cycle button { flex: 1; border: 0; background: none; font: inherit; font-size: .88rem; color: var(--ink-soft); padding: 6px 8px; border-radius: 7px; cursor: pointer; }
+  .cycle button[aria-selected="true"] { background: var(--card); color: var(--ink); font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  [hidden] { display: none !important; }
+  .plan h2 { font-size: 1.2rem; }
+  .btn.off { opacity: .6; cursor: default; justify-content: center; }
+  .btn.off:hover { transform: none; background: transparent; }
+  .stappen { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .stappen li { display: flex; gap: 14px; align-items: flex-start; }
+  .stappen .nr { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--blue); border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; flex: none; }
+  .stappen li > span > b { display: block; font-weight: 500; }
+  .stappen small { display: block; color: var(--ink-soft); font-size: .94rem; }
 </style>
 </head>
 <body>
@@ -166,77 +181,50 @@
   </div>
 
   <div class="intro">
-    <span class="eyebrow">Free Notion template</span>
-    <h1>A reading list that fills itself in</h1>
-    <p class="lede">Copy it into your Notion in one click. Save articles with Clipwise and the title, source, author, dates, summary and your highlights land in the right columns on their own.</p>
-    <div class="hero-cta">
-      <a class="btn big" href="https://nimble-knee-ef0.notion.site/Reading-list-3f153e2122c88092a342ce0a3312c476"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>Get the free template</a>
-      <span class="hint">Free · opens in Notion · no sign-up</span>
-    </div>
+    <span class="eyebrow">Account</span>
+    <h1>There’s nothing to log in to. On purpose.</h1>
+    <p class="lede">Clipwise has no accounts and no server. Free works without signing up. Pro works with a license key, and your purchase lives at Lemon Squeezy, who handle the payments.</p>
   </div>
 
-  <div class="tplcard" id="reading-list">
-    <div class="label"><h2>Reading list</h2><span class="free">Free</span></div>
-    <div class="mock" aria-hidden="true">
-      <div class="head">📚 Reading list</div>
-      <div class="cols">
-        <div class="col"><b>To read</b>
-          <div class="card">How to build a reading habit<small>The Reading Room · reading</small></div>
-          <div class="card">The best code is no code<small>Coding Horror · code</small></div>
-        </div>
-        <div class="col"><b>Reading</b>
-          <div class="card">Why we forget what we read<small>The Reading Room</small><small><mark>“Write one line about it”</mark></small></div>
-        </div>
-        <div class="col"><b>Done</b>
-          <div class="card">Notes on focus<small>Example Magazine</small></div>
-        </div>
-      </div>
+  <div class="plans">
+    <div class="plan pro">
+      <span class="tag">Clipwise Pro</span>
+      <h2>Manage your Pro plan</h2>
+      <p style="color:var(--ink-soft)">See your invoices, change or cancel your plan, update your card and find your license key. You log in with just your email address: you get a link, no password.</p>
+      <a class="btn" href="https://getclipwise.lemonsqueezy.com/billing" data-portal data-when="live" hidden>Open the customer portal</a>
+      <span class="btn ghost off" data-when="soon" aria-disabled="true">Opens when Pro launches</span>
     </div>
-    <div>
-      <h3 style="margin-bottom:10px">How to use it</h3>
-      <ol class="howto">
-        <li>Click <b>Get the free template</b>. It opens in Notion.</li>
-        <li>Click the <b>Duplicate</b> icon at the top right and pick your workspace.</li>
-        <li>Install <a href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Clipwise</a> (free, no account) and choose this Reading list in its setup.</li>
-        <li>Save any article with one click. The columns fill themselves in.</li>
-      </ol>
+    <div class="plan">
+      <span class="tag">New to Pro?</span>
+      <h2>Get Pro</h2>
+      <p style="color:var(--ink-soft)">Setups, screenshots, colors and notes, history, more workspaces, AI summaries and Pro templates.</p>
+      <a class="btn ghost" href="pricing.html#pro">See Pro and prices</a>
     </div>
-    <div class="hero-cta">
-      <a class="btn big" href="https://nimble-knee-ef0.notion.site/Reading-list-3f153e2122c88092a342ce0a3312c476"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>Get the free template</a>
-      <a class="btn ghost" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Get Clipwise — free</a>
-    </div>
-    <p class="fair">Keep the column names as they are, and Clipwise fills them in without any setup.</p>
   </div>
 
   <div class="fix">
-    <div class="prohead" id="pro">
-      <h2>Pro templates</h2>
-      <span class="protag" data-when="soon">Coming with Pro</span>
-      <span class="protag" data-when="live" hidden>Included in Pro</span>
-    </div>
-    <p style="color:var(--ink-soft)">Made for Clipwise, like the Reading list: keep the columns and everything fills itself in.</p>
-    <div class="progrid">
-      <div class="procard"><b>Research library</b><span>Sources by project and topic, with a reading status and your notes and highlights per source.</span></div>
-      <div class="procard"><b>Recipe box</b><span>Recipes from any site, sorted by meal and cuisine, with a “want to try” and “made it” list.</span></div>
-      <div class="procard"><b>Course notes</b><span>Articles and videos per course and week, with highlights ready for revision.</span></div>
-      <div class="procard"><b>Watch later</b><span>YouTube videos as a queue, playable right in Notion, with the channel filled in.</span></div>
-    </div>
-    <p><a href="pricing.html#pro">See what else is in Pro →</a></p>
+    <h2>Turn on Pro in Clipwise</h2>
+    <ol class="stappen">
+      <li><span class="nr">1</span><span><b>Find your license key</b><small>It’s in the email you got after buying, and in the customer portal.</small></span></li>
+      <li><span class="nr">2</span><span><b>Open Clipwise’s settings</b><small>Click the Clipwise icon in Chrome, then <b>Settings</b>.</small></span></li>
+      <li><span class="nr">3</span><span><b>Paste the key under “Clipwise Pro”</b><small>Click <b>Activate</b>. Pro turns on right away.</small></span></li>
+    </ol>
+    <p class="fair">One license works in up to 5 browsers. Moving to a new computer? Deactivate it in the old one’s settings first, or just email me.</p>
   </div>
 
   <div class="faq">
     <h2 style="margin-bottom:12px">Quick answers</h2>
     <details>
-      <summary>Do I need Clipwise to use the template?</summary>
-      <p>No, it's a normal Notion database and you can fill it in by hand. With Clipwise it fills itself in when you save an article.</p>
+      <summary>Why no account?</summary>
+      <p>An account means a server with your data on it, and a login that can break. Clipwise keeps your Notion secret and your clips on your own computer, and that’s not changing for Pro.</p>
     </details>
     <details>
-      <summary>Is the template really free?</summary>
-      <p>Yes. Duplicate it into your own Notion and it's yours. No email, no sign-up.</p>
+      <summary>I lost my license key</summary>
+      <p>Open the customer portal with the email address you bought with, or search your inbox for “Clipwise”. Still stuck? <a href="mailto:roansp27@gmail.com?subject=Clipwise%20license%20key">Email me</a>.</p>
     </details>
     <details>
-      <summary>I duplicated it. Now what?</summary>
-      <p>Install Clipwise. Its setup guide opens by itself; at the step "Share a database", open your Reading list in Notion, click ··· → Connections and add your integration.</p>
+      <summary>I use the free version. Do I need to do anything?</summary>
+      <p>No. Free keeps working as it does, with no account and no key.</p>
     </details>
   </div>
 

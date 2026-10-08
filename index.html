@@ -89,6 +89,15 @@
   .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
   .top .spacer { flex: 1; }
   @media (max-width: 520px) { .top .wide-only { display: none; } }
+  /* Log in + Get Pro, rechts in de kop van elke pagina */
+  .top a.navpro { font-size: .88rem; font-weight: 500; text-decoration: none; padding: 6px 13px; border-radius: 999px;
+                  background: var(--blue); color: #fff; white-space: nowrap; transition: background .2s ease; }
+  .top a.navpro:hover { background: var(--blue-ink); }
+  :root[data-theme="dark"] .top a.navpro { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .top a.navpro { color: #0f1420; } }
+  .top a.textlink, .top a.navpro { flex: none; }
+  @media (max-width: 400px) { .top { gap: 10px; } .top .mark { font-size: 0; gap: 0; } }
+
   .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; position: relative; }
   .top a.textlink::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px;
@@ -367,9 +376,11 @@
     <span class="spacer"></span>
     <a class="textlink wide-only" href="#try">Try it</a>
     <a class="textlink wide-only" href="setup.html">Setup</a>
-    <a class="textlink" href="templates.html" style="color:var(--blue-ink);font-weight:500">Free template</a>
-    <a class="textlink" href="pricing.html">Plans</a>
+    <a class="textlink" href="templates.html" style="color:var(--blue-ink);font-weight:500">Templates</a>
+    <a class="textlink wide-only" href="pricing.html">Plans</a>
     <a class="textlink wide-only" href="#privacy">Privacy</a>
+    <a class="textlink wide-only" href="account.html" data-portal>Log in</a>
+    <a class="navpro" href="pricing.html#pro">Get Pro</a>
   </div>
 
   <div class="hero">
@@ -624,6 +635,7 @@
     <a href="setup.html">Setup guide</a>
     <a href="templates.html">Templates</a>
     <a href="pricing.html">Plans</a>
+    <a href="account.html">Account</a>
     <a href="notion-web-clipper-not-working.html">Notion Web Clipper not working?</a>
     <a href="notion-web-clipper-alternative.html">Alternatives</a>
     <a href="save-highlights-to-notion.html">Save highlights to Notion</a>
@@ -854,3 +866,5 @@
     requestAnimationFrame(frame);
   })();
 </script>
+
+<script src="pro.js"></script>

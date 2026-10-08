@@ -65,6 +65,15 @@
   .top .spacer { flex: 1; }
   .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
   .top a.textlink:hover { color: var(--ink); }
+  @media (max-width: 520px) { .top .wide-only { display: none; } }
+  /* Log in + Get Pro, rechts in de kop van elke pagina */
+  .top a.navpro { font-size: .88rem; font-weight: 500; text-decoration: none; padding: 6px 13px; border-radius: 999px;
+                  background: var(--blue); color: #fff; white-space: nowrap; transition: background .2s ease; }
+  .top a.navpro:hover { background: var(--blue-ink); }
+  :root[data-theme="dark"] .top a.navpro { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .top a.navpro { color: #0f1420; } }
+  .top a.textlink, .top a.navpro { flex: none; }
+  @media (max-width: 400px) { .top { gap: 10px; } .top .mark { font-size: 0; gap: 0; } }
 
   .intro { display: flex; flex-direction: column; gap: 16px; padding-block: 10px 30px; }
   .intro p { font-family: Newsreader, Georgia, serif; font-size: 1.18rem; color: var(--ink-soft); }
@@ -214,8 +223,10 @@
   <div class="top">
     <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
     <span class="spacer"></span>
-    <a class="textlink" href="./">Home</a>
-    <a class="textlink" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Chrome Web Store</a>
+    <a class="textlink wide-only" href="./">Home</a>
+    <a class="textlink wide-only" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki">Chrome Web Store</a>
+    <a class="textlink wide-only" href="account.html" data-portal>Log in</a>
+    <a class="navpro" href="pricing.html#pro">Get Pro</a>
   </div>
 
   <div class="intro">
@@ -449,3 +460,5 @@
     <span>Not affiliated with Notion Labs, Inc.</span>
   </footer>
 </div>
+
+<script src="pro.js"></script>
