@@ -147,3 +147,4 @@ footer .spacer { flex: 1; }
 .more h2 { margin-bottom: 16px; }
 /* In de kaartjes iets kleiner, zodat er meer van het bord te zien is. */
 .tcard .nb { font-size: 9px; padding: 6% 6% 0; }
+a.cover, a.cover * { text-decoration: none; color: inherit; }
