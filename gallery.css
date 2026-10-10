@@ -1,0 +1,149 @@
+/* Templategalerij (templates.html en template-*.html). Zelfde huisstijl als de rest
+   van de site; de previews zijn nagebouwde mini-Notion-pagina's, geen plaatjes. */
+:root {
+  --paper: #f6f4ef; --card: #fffefb; --ink: #15140f; --ink-soft: #57544a;
+  --ink-faint: #8b8778; --line: #e2ddd1; --line-soft: #ece8dd;
+  --blue: #2a78d6; --blue-ink: #1b5aa6; --blue-wash: #e8f0fb;
+  --amber: #b57905; --green: #0a7d20;
+  --shadow: 0 1px 2px rgba(21,20,15,.05), 0 12px 32px -18px rgba(21,20,15,.35);
+  /* de nagebouwde Notion-pagina */
+  --nb: #ffffff; --nb-ink: #37352f; --nb-soft: #787774; --nb-line: #ededec; --nb-card: #ffffff; --nb-col: #f7f6f3;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+    --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+    --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+    --amber: #e0a437; --green: #4cbb63;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    --nb: #191919; --nb-ink: #e9e9e7; --nb-soft: #9b9a97; --nb-line: #2f2f2f; --nb-card: #252525; --nb-col: #202020;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+  --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+  --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+  --amber: #e0a437; --green: #4cbb63;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+  --nb: #191919; --nb-ink: #e9e9e7; --nb-soft: #9b9a97; --nb-line: #2f2f2f; --nb-card: #252525; --nb-col: #202020;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--paper); color: var(--ink);
+  font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+h1, h2, h3 { margin: 0; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.08; }
+h2 { font-size: 1.3rem; }
+p { margin: 0; }
+a { color: var(--blue-ink); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+.eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+.lede { font-family: Newsreader, Georgia, serif; font-size: 1.2rem; color: var(--ink-soft); max-width: 60ch; }
+
+/* kop en voet, zoals op de andere pagina's */
+.top { display: flex; align-items: center; gap: 12px; padding-block: 22px; }
+.mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+.mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+.top .spacer { flex: 1; }
+.top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; flex: none; }
+.top a.textlink:hover { color: var(--ink); }
+.top a.navpro { font-size: .88rem; font-weight: 500; text-decoration: none; padding: 6px 13px; border-radius: 999px; background: var(--blue); color: #fff; white-space: nowrap; flex: none; }
+.top a.navpro:hover { background: var(--blue-ink); }
+:root[data-theme="dark"] .top a.navpro { color: #0f1420; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .top a.navpro { color: #0f1420; } }
+@media (max-width: 520px) { .top .wide-only { display: none; } }
+@media (max-width: 400px) { .top { gap: 10px; } .top .mark { font-size: 0; gap: 0; } }
+footer { border-top: 1px solid var(--line-soft); margin-top: 56px; padding-block: 22px 40px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .86rem; color: var(--ink-faint); }
+footer a { color: var(--ink-soft); text-decoration: none; }
+footer .spacer { flex: 1; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font: 500 1rem/1 "Schibsted Grotesk", system-ui, sans-serif;
+  text-decoration: none; background: var(--blue); color: #fff; box-shadow: var(--shadow); transition: background .2s ease, transform .18s ease; border: 0; }
+:root[data-theme="dark"] .btn { color: #0f1420; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { color: #0f1420; } }
+.btn:hover { background: var(--blue-ink); transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--ink) !important; border: 1px solid var(--line); box-shadow: none; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* ---------- overzicht ---------- */
+.ghead { display: flex; flex-direction: column; gap: 14px; padding-block: 18px 26px; }
+.tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 22px; }
+.search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; padding: 0 12px; height: 42px; }
+.search svg { width: 17px; height: 17px; color: var(--ink-faint); flex: none; }
+.search input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; color: var(--ink); outline: none; height: 100%; }
+.cats { display: flex; flex-wrap: wrap; gap: 6px; }
+.cat { border: 1px solid var(--line); background: var(--card); color: var(--ink-soft); font: inherit; font-size: .88rem; padding: 7px 13px; border-radius: 999px; cursor: pointer; }
+.cat:hover { color: var(--ink); }
+.cat[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 22px; }
+.tcard { display: flex; flex-direction: column; text-decoration: none; color: inherit; border-radius: 14px; }
+.tcard .cover { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10; background: var(--nb);
+  transition: transform .25s ease, box-shadow .25s ease; box-shadow: 0 1px 2px rgba(0,0,0,.04); position: relative; }
+.tcard:hover .cover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.tcard .meta { display: flex; gap: 10px; align-items: flex-start; padding: 12px 2px 0; }
+.tcard .ticon { font-size: 1.3rem; line-height: 1.2; }
+.tcard h3 { font-size: 1rem; }
+.tcard .by { font-size: .84rem; color: var(--ink-faint); }
+.tcard .desc { font-size: .9rem; color: var(--ink-soft); margin-top: 4px; }
+.price { margin-left: auto; flex: none; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase;
+  border-radius: 999px; padding: 3px 9px; border: 1px solid var(--line); color: var(--ink-faint); white-space: nowrap; }
+.price.free { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, transparent); }
+.price.pro { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 45%, transparent); }
+.empty { color: var(--ink-faint); padding: 30px 0; }
+
+/* ---------- nagebouwde Notion-pagina ---------- */
+.nb { width: 100%; height: 100%; background: var(--nb); color: var(--nb-ink); font-family: ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 11px; line-height: 1.35; padding: 7% 7% 0; overflow: hidden; position: relative; text-align: left; }
+.nb::after { content: ""; position: absolute; inset: auto 0 0 0; height: 22%; background: linear-gradient(transparent, var(--nb)); pointer-events: none; }
+.nb .pic { font-size: 2.2em; line-height: 1; }
+.nb .ptitle { font-size: 1.75em; font-weight: 700; margin: .25em 0 .6em; letter-spacing: -.01em; }
+.nb .tabs { display: flex; gap: 1em; border-bottom: 1px solid var(--nb-line); padding-bottom: .45em; margin-bottom: .8em; color: var(--nb-soft); }
+.nb .tabs b { color: var(--nb-ink); font-weight: 600; }
+.nb .board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8em; }
+.nb .col { background: var(--nb-col); border-radius: 6px; padding: .5em; }
+.nb .colh { margin-bottom: .5em; }
+.nb .crd { background: var(--nb-card); border-radius: 5px; padding: .55em .6em; margin-bottom: .5em; box-shadow: 0 0 0 1px var(--nb-line), 0 1px 2px rgba(0,0,0,.05); }
+.nb .crd b { display: block; font-weight: 600; margin-bottom: .35em; }
+.nb .crd small { display: block; color: var(--nb-soft); font-size: .9em; }
+.nb .chips { display: flex; flex-wrap: wrap; gap: .3em; }
+.nb .chip { border-radius: 3px; padding: .05em .45em; font-size: .9em; white-space: nowrap; }
+.nb mark { background: rgba(255, 212, 0, .35); color: inherit; border-radius: 2px; padding: 0 .15em; }
+.nb .gal { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8em; }
+.nb .vid { background: var(--nb-card); border-radius: 6px; overflow: hidden; box-shadow: 0 0 0 1px var(--nb-line); }
+.nb .thumb { aspect-ratio: 16 / 9; display: grid; place-items: center; }
+.nb .thumb i { width: 2.2em; height: 1.5em; border-radius: .4em; background: rgba(0,0,0,.55); display: grid; place-items: center; }
+.nb .thumb i::after { content: ""; border-left: .6em solid #fff; border-top: .38em solid transparent; border-bottom: .38em solid transparent; margin-left: .15em; }
+.nb .vid div:last-child { padding: .5em .6em; }
+/* Notion-kleuren voor selects */
+.c-gray { background: rgba(120,119,116,.18); } .c-brown { background: rgba(159,107,83,.22); } .c-orange { background: rgba(217,115,13,.2); }
+.c-yellow { background: rgba(203,145,47,.22); } .c-green { background: rgba(68,131,97,.22); } .c-blue { background: rgba(51,126,169,.2); }
+.c-purple { background: rgba(144,101,176,.22); } .c-pink { background: rgba(193,76,138,.2); } .c-red { background: rgba(212,76,71,.2); }
+
+/* ---------- detailpagina ---------- */
+.crumb { font-size: .9rem; color: var(--ink-faint); margin: 6px 0 22px; }
+.crumb a { color: var(--ink-soft); text-decoration: none; }
+.detail { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+@media (max-width: 820px) { .detail { grid-template-columns: 1fr; } }
+.bigcover { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10.5; box-shadow: var(--shadow); }
+.bigcover .nb { font-size: clamp(9px, 1.25vw, 13.5px); }
+.side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px; }
+.side .ticon { font-size: 2.4rem; line-height: 1; }
+.side .by { color: var(--ink-faint); font-size: .92rem; }
+.side .fine { font-size: .86rem; color: var(--ink-faint); }
+.side .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.side .tags a { font-size: .84rem; text-decoration: none; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
+.works { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 10px; background: var(--blue-wash); font-size: .9rem; color: var(--ink-soft); }
+.works svg { width: 18px; height: 18px; color: var(--blue); flex: none; margin-top: 2px; }
+.about { margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 28px; }
+.about h2 { font-size: 1.05rem; margin-bottom: 10px; }
+.about p, .about li { color: var(--ink-soft); font-size: .95rem; }
+.about ul, .about ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.props { display: flex; flex-wrap: wrap; gap: 6px; }
+.props span { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .76rem; border: 1px solid var(--line); background: var(--card); border-radius: 6px; padding: 3px 8px; color: var(--ink-soft); }
+.more { margin-top: 56px; }
+.more h2 { margin-bottom: 16px; }
+/* In de kaartjes iets kleiner, zodat er meer van het bord te zien is. */
+.tcard .nb { font-size: 9px; padding: 6% 6% 0; }
