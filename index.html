@@ -11,7 +11,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <style>
   :root {
@@ -127,6 +126,7 @@
   }
   .btn-primary:hover::after { left: 120%; }
   .btn-ghost { border-color: var(--line); color: var(--ink); background: transparent; }
+  .btn-lg { padding: 15px 24px; font-size: 1.06rem; font-weight: 600; }
   .btn-ghost:hover { border-color: var(--ink-faint); }
 
   /* ---------- hero ---------- */
@@ -156,7 +156,10 @@
     animation: breathe 7s ease-in-out infinite;
   }
   @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.08); opacity: 1; } }
-  #clip3d { width: 100%; height: 380px; display: block; position: relative; }
+  .demo-video { margin: 0; position: relative; width: 100%; max-width: 520px; }
+  .demo-video video { display: block; width: 100%; height: auto; aspect-ratio: 740 / 680; border-radius: 14px;
+                      border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0,0,0,.35); background: #eceae4; }
+  .demo-video figcaption { margin-top: 10px; font-size: .82rem; color: var(--ink-faint); text-align: center; }
   .stage-hint {
     position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
     font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .68rem;
@@ -350,7 +353,6 @@
   @media (max-width: 860px) {
     .hero { grid-template-columns: minmax(0, 1fr); gap: 26px; }
     .stage { min-height: 300px; }
-    #clip3d { height: 300px; }
     .privacy { grid-template-columns: 1fr; }
   }
   @media (max-width: 520px) {
@@ -380,7 +382,7 @@
     <a class="textlink wide-only" href="pricing.html">Plans</a>
     <a class="textlink wide-only" href="#privacy">Privacy</a>
     <a class="textlink wide-only" href="account.html" data-portal data-goatcounter-click="log-in-home">Log in</a>
-    <a class="navpro" href="pricing.html#pro" data-goatcounter-click="get-pro-header-home">Get Pro</a>
+    <a class="navpro" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki" data-goatcounter-click="add-to-chrome-header-home">Add to Chrome</a>
   </div>
 
   <div class="hero">
@@ -389,7 +391,7 @@
       <h1>Save any page to&nbsp;Notion. The whole article, not half of it.</h1>
       <p class="lede">Clipwise clips web pages straight into your Notion databases — no account with us, no server in between, and nothing that ever leaves your computer.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki" data-goatcounter-click="add-to-chrome-home">Add to Chrome — free</a>
+        <a class="btn btn-primary btn-lg" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki" data-goatcounter-click="add-to-chrome-home">Add to Chrome — free</a>
         <a class="btn btn-ghost" href="#try" data-goatcounter-click="try-demo-home">Try the demo</a>
       </div>
       <div class="facts">
@@ -405,7 +407,11 @@
     </div>
 
     <div class="stage">
-      <canvas id="clip3d" aria-label="A rotating paperclip, the Clipwise mark"></canvas>
+      <figure class="demo-video">
+        <video src="shots/demo.mp4" poster="shots/demo-poster.jpg" autoplay muted loop playsinline
+               aria-label="Highlighting a sentence, saving the page with Clipwise, and the page in Notion with the highlight at the top"></video>
+        <figcaption>Highlight, save, and it’s in Notion. 11 seconds, real extension.</figcaption>
+      </figure>
     </div>
   </div>
 
