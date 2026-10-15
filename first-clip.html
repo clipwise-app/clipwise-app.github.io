@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="shots/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="shots/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="shots/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your first clip | Clipwise</title>
+<meta name="description" content="A short practice article for your first clip with Clipwise: highlight a sentence, save it to Notion, and see it arrive.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://clipwise-app.github.io/first-clip.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #f6f4ef; --card: #fffefb; --ink: #15140f; --ink-soft: #57544a;
+    --ink-faint: #8b8778; --line: #e2ddd1; --line-soft: #ece8dd;
+    --blue: #2a78d6; --blue-ink: #1b5aa6; --blue-wash: #e8f0fb;
+    --amber: #b57905; --amber-wash: #fbf1dc; --green: #0a7d20;
+    --shadow: 0 1px 2px rgba(21,20,15,.05), 0 12px 32px -18px rgba(21,20,15,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+      --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+      --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+      --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14140f; --card: #1c1b16; --ink: #f2efe6; --ink-soft: #b4afa1;
+    --ink-faint: #85806f; --line: #322f27; --line-soft: #26241d;
+    --blue: #6aa6ee; --blue-ink: #9cc4f4; --blue-wash: #1a2536;
+    --amber: #e0a437; --amber-wash: #2a2317; --green: #4cbb63;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+  }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 740px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5.4vw, 2.9rem); line-height: 1.07; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.02rem; }
+  p { margin: 0; }
+  a { color: var(--blue-ink); }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .86em; background: var(--line-soft); border-radius: 4px; padding: 1px 6px; color: var(--ink); }
+  .eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .top { display: flex; align-items: center; gap: 12px; padding-block: 22px; }
+  .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
+  .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .top .spacer { flex: 1; }
+  .top a.textlink { font-size: .92rem; color: var(--ink-soft); text-decoration: none; }
+  .top a.textlink:hover { color: var(--ink); }
+  @media (max-width: 520px) { .top .wide-only { display: none; } }
+  /* Log in + Get Pro, rechts in de kop van elke pagina */
+  .top a.navpro { font-size: .88rem; font-weight: 500; text-decoration: none; padding: 6px 13px; border-radius: 999px;
+                  background: var(--blue); color: #fff; white-space: nowrap; transition: background .2s ease; }
+  .top a.navpro:hover { background: var(--blue-ink); }
+  :root[data-theme="dark"] .top a.navpro { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .top a.navpro { color: #0f1420; } }
+  .top a.textlink, .top a.navpro { flex: none; }
+  @media (max-width: 400px) { .top { gap: 10px; } .top .mark { font-size: 0; gap: 0; } }
+
+  .intro { display: flex; flex-direction: column; gap: 16px; padding-block: 12px 26px; }
+  .intro .lede { font-family: Newsreader, Georgia, serif; font-size: 1.2rem; color: var(--ink-soft); }
+
+  .quick { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .quick h2 { font-size: 1rem; }
+  .quick ol { margin: 0; padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 4px; }
+  .quick a { text-decoration: none; }
+  .quick a:hover { text-decoration: underline; }
+
+  .fix { border-top: 1px solid var(--line-soft); padding-block: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .fix .head { display: flex; gap: 12px; align-items: baseline; }
+  .fix .n { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--blue); border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; flex: none; }
+  .fix p, .fix li { color: var(--ink-soft); }
+  .fix ol, .fix ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .symptom { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .76rem; color: var(--ink-faint); }
+  .note { border-left: 3px solid var(--amber); background: var(--amber-wash); border-radius: 0 8px 8px 0; padding: 12px 14px; font-size: .94rem; color: var(--ink-soft); }
+  .note b { color: var(--ink); }
+
+  .alt { margin-block: 12px 8px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .alt .lede { font-family: Newsreader, Georgia, serif; font-size: 1.1rem; color: var(--ink-soft); }
+  .tbl { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 440px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  th { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  td:first-child { color: var(--ink); font-weight: 500; }
+  td { color: var(--ink-soft); }
+  .yes { color: var(--green); font-weight: 500; }
+  .fair { font-size: .88rem; color: var(--ink-faint); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px; font: 500 .96rem/1 "Schibsted Grotesk", system-ui, sans-serif; text-decoration: none; background: var(--blue); color: #fff; box-shadow: var(--shadow); transition: background .2s ease, transform .18s ease; }
+  :root[data-theme="dark"] .btn { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { color: #0f1420; } }
+  .btn:hover { background: var(--blue-ink); transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .row .btn.ghost { color: var(--ink) !important; }
+
+  .faq { border-top: 1px solid var(--line-soft); padding-block: 28px; }
+  .faq details { border-bottom: 1px solid var(--line-soft); padding-block: 13px; }
+  .faq summary { cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; }
+  .faq details[open] summary::after { content: "–"; color: var(--blue); }
+  .faq p { margin-top: 10px; color: var(--ink-soft); font-size: .95rem; }
+
+  footer { border-top: 1px solid var(--line-soft); padding-block: 22px 40px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .86rem; color: var(--ink-faint); }
+  footer a { color: var(--ink-soft); text-decoration: none; }
+  footer .spacer { flex: 1; }
+
+  .btn.big { font-size: 1.12rem; padding: 17px 28px; border-radius: 12px; gap: 12px; }
+  .btn.big svg { width: 22px; height: 22px; flex: none; }
+  .btn.ghost { color: var(--ink) !important; }
+  .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; margin-top: 6px; }
+  .hero-cta .hint { font-size: .9rem; color: var(--ink-faint); }
+  .tplcard { margin-top: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); box-shadow: var(--shadow);
+             padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+  .tplcard .label { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .free { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+          color: var(--green); border: 1px solid color-mix(in srgb, var(--green) 45%, transparent); border-radius: 999px; padding: 3px 10px; }
+  .mock { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--paper); font-size: .84rem; }
+  .mock .head { padding: 10px 12px; font-weight: 700; border-bottom: 1px solid var(--line-soft); }
+  .mock .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px; }
+  .mock .col b { display: block; font-size: .72rem; font-family: "IBM Plex Mono", monospace; color: var(--ink-faint); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; }
+  .mock .card { background: var(--card); border: 1px solid var(--line); border-radius: 7px; padding: 8px 9px; margin-bottom: 8px; color: var(--ink); }
+  .mock .card small { display: block; color: var(--ink-faint); font-size: .72rem; margin-top: 3px; }
+  .mock mark { background: #fde68a; color: #15140f; border-radius: 2px; padding: 0 2px; font-size: .74rem; }
+  .howto { margin: 0; padding-left: 22px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px; }
+  .soon { border: 1px dashed var(--line); border-radius: 14px; padding: 18px 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px; }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; margin-top: 8px; }
+  .plan { border: 1px solid var(--line); border-radius: 14px; background: var(--card); padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .plan.now { box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--blue) 45%, var(--line)); }
+  .plan .tag { align-self: flex-start; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+               border-radius: 999px; padding: 3px 10px; border: 1px solid var(--line); color: var(--ink-faint); }
+  .plan.now .tag { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, transparent); }
+  .plan .price { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; }
+  .plan ul.feats { list-style: none; margin: 0; padding: 0; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px; font-size: .95rem; }
+  .feats li { display: flex; gap: 9px; align-items: flex-start; }
+  .feats svg { width: 16px; height: 16px; flex: none; margin-top: 4px; color: var(--green); }
+  .plan.pro .feats svg { color: var(--blue); }
+  .feats b { font-weight: 500; color: var(--ink); }
+  .feats small { display: block; font-size: .86rem; color: var(--ink-faint); }
+  .plan .btn { justify-content: center; margin-top: auto; }
+  .plan.pro { border-color: color-mix(in srgb, var(--blue) 55%, var(--line)); box-shadow: var(--shadow); }
+  .plan.pro .tag { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 45%, transparent); }
+  .plan.now { box-shadow: none; border-color: var(--line); }
+  .plan .price small { font-size: .95rem; font-weight: 400; color: var(--ink-faint); letter-spacing: 0; }
+  .cycle { display: flex; padding: 3px; gap: 3px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+  .cycle button { flex: 1; border: 0; background: none; font: inherit; font-size: .88rem; color: var(--ink-soft); padding: 6px 8px; border-radius: 7px; cursor: pointer; }
+  .cycle button[aria-selected="true"] { background: var(--card); color: var(--ink); font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  [hidden] { display: none !important; }
+  .plan h2 { font-size: 1.2rem; }
+  .btn.off { opacity: .6; cursor: default; justify-content: center; }
+  .btn.off:hover { transform: none; background: transparent; }
+  .stappen { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .stappen li { display: flex; gap: 14px; align-items: flex-start; }
+  .stappen .nr { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .78rem; color: var(--blue); border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px; display: grid; place-items: center; flex: none; }
+  .stappen li > span > b { display: block; font-weight: 500; }
+  .stappen small { display: block; color: var(--ink-soft); font-size: .94rem; }
+  .gids { margin-block: 8px 30px; border: 1px solid color-mix(in srgb, var(--blue) 45%, var(--line)); border-radius: 14px; background: var(--card); box-shadow: var(--shadow); padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .gids h2 { font-size: 1.05rem; }
+  .gids kbd { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .8em; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; background: var(--paper); color: var(--ink); }
+  .gids .klein { font-size: .9rem; color: var(--ink-faint); }
+  article { font-family: Newsreader, Georgia, serif; font-size: 1.2rem; line-height: 1.65; color: var(--ink); padding-bottom: 40px; }
+  article h1 { font-family: "Schibsted Grotesk", system-ui, sans-serif; margin-bottom: 8px; }
+  article .byline { font-family: "Schibsted Grotesk", system-ui, sans-serif; font-size: .9rem; color: var(--ink-faint); margin-bottom: 26px; }
+  article h2 { font-family: "Schibsted Grotesk", system-ui, sans-serif; font-size: 1.25rem; margin: 30px 0 10px; }
+  article p { margin: 0 0 16px; color: var(--ink-soft); }
+  article ul { margin: 0 0 16px; padding-left: 22px; color: var(--ink-soft); }
+  article blockquote { margin: 0 0 16px; padding: 4px 0 4px 18px; border-left: 3px solid var(--blue); color: var(--ink); font-style: italic; }
+  .probeer { background: var(--amber-wash); border-radius: 3px; padding: 0 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
+    <span class="spacer"></span>
+    <a class="textlink wide-only" href="setup.html">Setup guide</a>
+  </div>
+
+  <aside class="gids" aria-label="How to make your first clip">
+    <span class="eyebrow">Your first clip · about 30 seconds</span>
+    <ol class="stappen">
+      <li><span class="nr">1</span><span><b>Highlight a sentence</b><small>Select the sentence with the yellow background below, then press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>. Or right-click it and choose <b>Highlight with Clipwise</b>. It turns yellow.</small></span></li>
+      <li><span class="nr">2</span><span><b>Click the Clipwise icon</b><small>Top right in Chrome (pinned, or under the puzzle piece). Pick your database and click <b>Save to Notion</b>.</small></span></li>
+      <li><span class="nr">3</span><span><b>Open it in Notion</b><small>Click <b>Open in Notion</b>. The article is there with its title and source, and your highlight sits at the top.</small></span></li>
+    </ol>
+    <p class="klein">Something not working? The <a href="setup.html#trouble">setup guide</a> has the usual fixes. You can delete this practice page from Notion afterwards.</p>
+  </aside>
+
+  <article>
+    <h1>Three habits that make a reading list worth keeping</h1>
+    <p class="byline">By Roan · Clipwise · 2 minute read</p>
+
+    <p>Most reading lists fail the same way. Saving is easy, so everything gets saved, and a month later the list is a few hundred links that all look equally important. Nothing is wrong with the tool. What's missing is a reason to come back.</p>
+
+    <p><span class="probeer">The fix is not to save less, but to save the part that made you stop.</span> These three habits help with that.</p>
+
+    <h2>1. Mark the sentence, not the page</h2>
+    <p>When something is worth saving, there is usually one line that made it so. Highlight that line before you save. Later, you read the line first and only open the whole page when you need it.</p>
+
+    <blockquote>A saved page tells you what you read. A highlighted sentence tells you why it mattered.</blockquote>
+
+    <h2>2. Give every page a status</h2>
+    <p>A simple status column does more than any tag system. Three values are enough:</p>
+    <ul>
+      <li><b>To read</b>: saved, not opened yet</li>
+      <li><b>Reading</b>: started, worth finishing</li>
+      <li><b>Done</b>: read, with the useful part highlighted</li>
+    </ul>
+
+    <h2>3. Look back once a week</h2>
+    <p>Pick ten minutes on the same day each week. Skim the highlights of what you finished and move anything stale out of "To read". It is the only part that takes discipline, and it is what turns a pile of links into something you actually use.</p>
+
+    <p>That's the whole system. Now save this page and see how it arrives.</p>
+  </article>
+
+  <footer>
+    <span>Clipwise — made by Roan in the Netherlands</span>
+    <span class="spacer"></span>
+    <a href="./">Home</a>
+    <a href="setup.html">Setup guide</a>
+    <a href="templates.html">Templates</a>
+    <a href="mailto:roansp27@gmail.com?subject=Clipwise%20first%20clip">Contact</a>
+    <span>Visits are counted anonymously, without cookies.</span>
+    <span>Not affiliated with Notion Labs, Inc.</span>
+  </footer>
+</div>
+<script data-goatcounter="https://clipwisehq.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
