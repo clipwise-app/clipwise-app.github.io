@@ -126,7 +126,7 @@ footer .spacer { flex: 1; }
 .crumb { font-size: .9rem; color: var(--ink-faint); margin: 6px 0 22px; }
 .crumb a { color: var(--ink-soft); text-decoration: none; }
 .detail { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 36px; align-items: start; }
-@media (max-width: 820px) { .detail { grid-template-columns: 1fr; } }
+@media (max-width: 820px) { .detail { grid-template-columns: minmax(0, 1fr); } }
 .bigcover { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10.5; box-shadow: var(--shadow); }
 .bigcover .nb { font-size: clamp(9px, 1.25vw, 13.5px); }
 .side { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px; }
@@ -148,3 +148,8 @@ footer .spacer { flex: 1; }
 /* In de kaartjes iets kleiner, zodat er meer van het bord te zien is. */
 .tcard .nb { font-size: 9px; padding: 6% 6% 0; }
 a.cover, a.cover * { text-decoration: none; color: inherit; }
+
+/* smalle schermen: niets breder dan het scherm */
+.btn { max-width: 100%; }
+.side, .props { min-width: 0; max-width: 100%; }
+@media (max-width: 420px) { .btn { white-space: normal; text-align: center; line-height: 1.25; } }

@@ -13,17 +13,40 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="gallery.css">
+<style id="kop-nav">
+  /* De kop: gelijk op elke pagina (tools/kop.js). */
+  /* Overal even breed (zoals de homepage), ook op pagina's met een smallere kolom: zo springt de kop niet. */
+  .top { display: flex; align-items: center; gap: 16px; padding-block: 22px;
+         width: min(1080px, calc(100vw - 40px)); max-width: none; position: relative; left: 50%; transform: translateX(-50%); }
+  .top .mark { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .top .mark img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+  .top .spacer { flex: 1; }
+  .top nav.kop { display: flex; align-items: center; gap: 18px; }
+  .top nav.kop a { font-size: .92rem; color: var(--ink-soft); text-decoration: none; white-space: nowrap; transition: color .15s ease; }
+  .top nav.kop a:hover { color: var(--ink); }
+  .top nav.kop a[aria-current="page"] { color: var(--blue-ink); font-weight: 600; }
+  .top a.navpro { flex: none; font-size: .88rem; font-weight: 500; text-decoration: none; padding: 6px 13px; border-radius: 999px;
+                  background: var(--blue); color: #fff; white-space: nowrap; transition: background .2s ease; }
+  .top a.navpro:hover { background: var(--blue-ink); }
+  :root[data-theme="dark"] .top a.navpro { color: #0f1420; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .top a.navpro { color: #0f1420; } }
+  @media (max-width: 600px) { .top nav.kop .k-breed { display: none; } .top nav.kop { gap: 14px; } }
+  @media (max-width: 400px) { .top { gap: 8px; } .top .mark { font-size: 0; gap: 0; } .top nav.kop { gap: 11px; } .top nav.kop a, .top a.navpro { font-size: .84rem; } .top a.navpro { padding: 6px 11px; } }
+</style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
     <a class="mark" href="./"><img src="shots/icon.png" alt="">Clipwise</a>
     <span class="spacer"></span>
-    <a class="textlink wide-only" href="./">Home</a>
-    <a class="textlink" href="templates.html">Templates</a>
-    <a class="textlink wide-only" href="pricing.html">Plans</a>
-    <a class="textlink wide-only" href="account.html" data-portal data-goatcounter-click="log-in-template-recipe-box">Log in</a>
-    <a class="navpro" href="pricing.html#pro" data-goatcounter-click="get-pro-header-template-recipe-box">Get Pro</a>
+    <nav class="kop" aria-label="Main">
+      <a href="./" class="k-breed">Home</a>
+      <a href="setup.html">Setup</a>
+      <a href="templates.html" aria-current="page">Templates</a>
+      <a href="pricing.html">Plans</a>
+      <a href="account.html" class="k-breed" data-portal data-goatcounter-click="log-in-template-recipe-box">Log in</a>
+    </nav>
+    <a class="navpro" href="https://chromewebstore.google.com/detail/fjgllpbhbnjdkhgmokagglhkahngmjki" data-goatcounter-click="add-to-chrome-header-template-recipe-box">Add to Chrome</a>
   </div>
 
   <p class="crumb"><a href="templates.html">Templates</a> / Recipe box</p>
